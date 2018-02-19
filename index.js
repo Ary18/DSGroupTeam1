@@ -1,3 +1,5 @@
+var currentPosition='';
+var oldAccess='';
 function loadWeather() {
     var weather = new extractWeather();
     var mapProp = {
@@ -21,12 +23,12 @@ function loadWeather() {
     localStorage.setItem('ultimoaccesso', date.toString());
     if (localStorage && localStorage['username']) {
         user = localStorage['username'];
-        alert("ho trovato la posizione nello storage");
     } else {
         user = 'Mario';
         localStorage['username'] = user;
     }
-    alert(user + " ultimo accesso " + oldDate);
+    oldAccess=user + " ultimo accesso " + oldDate;
+    //alert(oldAccess);
 }
 function loadPosition() { //geolocalizza e restituisce l'indirizzo utilizzando il reverse geocoding
     var coordinate;
@@ -48,7 +50,8 @@ function funzioneOk(position) {
         var geocoder = new google.maps.Geocoder;
         geocoder.geocode({ 'location': mapProp.center }, function (results, status) {
             if (results[1]) {
-                alert(results[1].formatted_address);// stringa geocoder reverse
+                currentPosition=results[1].formatted_address;
+                alert(currentPosition);// stringa geocoder reverse
             } else {
                 alert('No Result');
             }
@@ -63,4 +66,11 @@ function funzioneOk(position) {
 }
 function funzioneErrore(error) {
     alert(error.message);
+}
+
+function load(id,value){
+    //var name = document.getElementById(id);
+    if (id === 'image') {
+        name.src = value;
+    } else { name.innerText = value }
 }
