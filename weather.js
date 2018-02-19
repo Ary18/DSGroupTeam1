@@ -47,4 +47,6 @@ var meteo={
     cod:200
 }
 
-
+function extractWeather() {
+    return meteo;
+}
