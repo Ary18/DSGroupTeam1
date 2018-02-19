@@ -8,6 +8,7 @@
 body{
     height: 1500px;
     margin: 10px;
+    background-color: rgb(255, 255, 219);
 }
 
 header {
@@ -60,6 +61,7 @@ section {
 
 #dati {
     height: 50%;
+    background-color: white;
 }
 
 h3 {
