@@ -14,6 +14,7 @@ header {
     margin: 5px;
     border: 1px solid black;
     width: 100%;
+    border-radius: 5px;
 
 }
 
@@ -49,9 +50,44 @@ section {
     border: 1px solid black;
     width: 100%;
     height: auto;
+    border-radius:5px;
+    text-align: center;
+
 }
 
-footer
+h3 {
+    color: #000099;
+    font-weight: bold;
+
+}
+#icona {
+    width:16px;
+
+}
+section p {
+    text-align: center;
+    margin: auto;
+}
+
+table {
+    width: 50%;
+    height: auto;
+
+}
+
+table th td {
+    border: 1px solid black;
+    padding: 3px;
+}
+
+footer {
+    height: 200px;
+    border: 1px solid black;
+    width:100%;
+    font-size:15px;
+    text-align:center;
+    margin: 5px;
+}
 
 
 
