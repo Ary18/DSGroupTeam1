@@ -1,6 +1,7 @@
 * {
     font-size: 20px;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    padding: 3px;
 
 }
 
@@ -24,7 +25,7 @@ h1 {
     text-align: center;
     width: 100%;
     margin:auto;
-    color: #000099;
+    color: #2727ce;
 
 }
 h1::first-letter {
@@ -37,7 +38,7 @@ h2 {
     text-align: center;
     width: 100%;
     margin: auto;
-    color:#000099
+    color:#2727ce;
 }
 
 h2::first-letter {
@@ -56,7 +57,7 @@ section {
 }
 
 h3 {
-    color: #000099;
+    color: #2727ce;
     font-weight: bold;
 
 }
@@ -73,6 +74,7 @@ table {
     width: 50%;
     height: auto;
     float: left;
+    margin: 5px;
 
 }
 
@@ -86,6 +88,7 @@ table th td {
     width: 50%;
     float: right;
     height: auto;
+    margin: 5px;
 
 }
 
@@ -97,7 +100,3 @@ footer {
     text-align:center;
     margin: 5px;
 }
-
-
-
-
