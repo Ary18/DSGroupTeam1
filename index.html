@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <header id="testa">
+        <h1>Ciao Giovanni</h1>
+        <h2>Bentornato</h2>
+    </header>
+    <section id="posizione">
+        <p id="luogo">Ti trovi attualmente a Milano</p>
+    </section>
+    <section id="dati">
+        <h3>Le previsioni di oggi</h3>
+        <article>
+            <figure>
+                <img id="icona" src="https://www.google.it/imgres?imgurl=http%3A%2F%2Fstatici.behindthevoiceactors.com%2Fbehindthevoiceactors%2F_img%2Fchars%2Fdory-young-finding-dory-90.2.jpg&imgrefurl=http%3A%2F%2Fwww.behindthevoiceactors.com%2Fmovies%2FFinding-Dory%2FDory-Young%2F&docid=OYTQNTdOr0VwuM&tbnid=GLBLzeuY9FBNtM%3A&vet=1&w=210&h=240&client=safari&bih=769&biw=1264&ved=0ahUKEwik3oOUobLZAhUCsxQKHSJxASYQxiAIGSgG&iact=c&ictx=1" alt="immagine">
+            </figure>
+            <p id="temp">Temperatura :</p>
+            <table>
+            <tr>
+                    <td>Wind</td>
+                    <td id="wind">Gentle Breeze, 3.6 m/s West (280)</td>
+            </tr>
+            <tr>
+                    <td>Cloudiness</td>
+                    <td id="cloudiness">Overcast clouds</td>
+                </tr>
+                <tr>
+                    <td>Pressure</td>
+                    <td id="pressure">1015 hpa</td>
+            </tr>
+            <tr>
+                    <td>Humidity</td>
+                    <td id="humidity">93%</td>
+            </tr>
+            <tr>
+                    <td>Sunrise</td>
+                    <td id="sunrice">08:05</td>
+            </tr>
+            <tr>
+                    <td>Sunset</td>
+                    <td id="sunset">18:23</td>
+            </tr>
+            <tr>
+                    <td>Geo Coords</td>
+                    <td id="geoCoords">[51.51,-0.13]</td>
+            </tr>
+            </table>
+        </article>
+        <article id="mappa">
+
+        </article>
+    </section>
+    <footer>
+        <p>Il vostro meteo è stato offerto dal gruppo 1!</p>
+    </footer>
+    <script src="index.js"></script>
+    <script src="weather.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1EHAsI359U-bXcnQc_2QdDCZ7eG4T8ZA&callback=loadWeather"></script>
+</body>
+</html>
