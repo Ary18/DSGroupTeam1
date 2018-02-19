@@ -7,6 +7,7 @@
 
 body{
     height: 1500px;
+    margin: 10px;
 }
 
 header {
@@ -16,7 +17,6 @@ header {
     border: 1px solid black;
     width: 100%;
     border-radius: 5px;
-
 }
 
 h1 {
@@ -24,12 +24,13 @@ h1 {
     top: 10%;
     text-align: center;
     width: 100%;
-    margin:auto;
+    margin:15px;
     color: #2727ce;
+    font-size: 30px;
 
 }
 h1::first-letter {
-    font-size: 24px;
+    font-size: 34px;
     text-transform: uppercase
 }
 
@@ -37,12 +38,13 @@ h2 {
     position: relative;
     text-align: center;
     width: 100%;
-    margin: auto;
+    margin: 15px;
     color:#2727ce;
+    font-size:30px
 }
 
 h2::first-letter {
-    font-size: 24px;
+    font-size: 34px;
     text-transform: uppercase
 }
 
@@ -50,16 +52,20 @@ section {
     margin: 5px;
     border: 1px solid black;
     width: 100%;
-    height: auto;
+    height: 30%;
     border-radius:5px;
     text-align: center;
-
 }
 
 h3 {
     color: #2727ce;
     font-weight: bold;
+    font-size: 30px;
 
+}
+h3::first-letter {
+    font-size: 34px;
+    text-transform: uppercase
 }
 #icona {
     width:16px;
@@ -71,14 +77,14 @@ section p {
 }
 
 table {
-    width: 50%;
+    width: 40%;
     height: auto;
     float: left;
     margin: 5px;
+    border: 1px solid black;
 
 }
-
-table th td {
+table tr td {
     border: 1px solid black;
     padding: 3px;
     vertical-align: middle;
@@ -87,7 +93,7 @@ table th td {
 #mappa {
     width: 50%;
     float: right;
-    height: auto;
+    height: 40%;
     margin: 5px;
 
 }
@@ -98,5 +104,7 @@ footer {
     width:100%;
     font-size:15px;
     text-align:center;
+    background-color: #cccccc;
+    border-radius: 5px;
     margin: 5px;
 }
