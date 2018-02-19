@@ -22,7 +22,7 @@ h1 {
     position:relative;
     top: 10%;
     text-align: center;
-    width: 60%;
+    width: 100%;
     margin:auto;
     color: #000099;
 
@@ -35,7 +35,7 @@ h1::first-letter {
 h2 {
     position: relative;
     text-align: center;
-    width: 60%;
+    width: 100%;
     margin: auto;
     color:#000099
 }
@@ -72,12 +72,21 @@ section p {
 table {
     width: 50%;
     height: auto;
+    float: left;
 
 }
 
 table th td {
     border: 1px solid black;
     padding: 3px;
+    vertical-align: middle;
+}
+
+#mappa {
+    width: 50%;
+    float: right;
+    height: auto;
+
 }
 
 footer {
