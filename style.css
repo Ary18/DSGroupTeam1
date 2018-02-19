@@ -4,6 +4,10 @@
 
 }
 
+body{
+    height: 1500px;
+}
+
 header {
     height: 200px;
     background-color: #cccccc;
@@ -13,14 +17,42 @@ header {
 
 }
 
-h1{
+h1 {
     position:relative;
     top: 10%;
     text-align: center;
     width: 60%;
     margin:auto;
+    color: #000099;
 
 }
+h1::first-letter {
+    font-size: 24px;
+    text-transform: uppercase
+}
+
+h2 {
+    position: relative;
+    text-align: center;
+    width: 60%;
+    margin: auto;
+    color:#000099
+}
+
+h2::first-letter {
+    font-size: 24px;
+    text-transform: uppercase
+}
+
+section {
+    margin: 5px;
+    border: 1px solid black;
+    width: 100%;
+    height: auto;
+}
+
+footer
+
 
 
 
