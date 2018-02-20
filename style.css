@@ -54,6 +54,7 @@ section {
     border-radius:5px;
     text-align: center;
     height: auto;
+    
 }
 #posizione{
     height: 3%;
@@ -61,8 +62,9 @@ section {
 }
 
 #dati {
-    height: 50%;
+    height: 100%;
     background-color: white;
+    
 }
 
 h3 {
@@ -85,11 +87,17 @@ section p {
     margin: auto;
 }
 
+article {
+    height: auto;
+    width:40%;
+
+}
+
 table {
-    width: 40%;
+    width: 100%;
     height: auto;
     float: left;
-    margin: 5px;
+    margin: 10px;
     border: 1px solid black;
 
 }
@@ -102,15 +110,14 @@ table tr td {
 }
 
 #mappa {
-    width: 50%;
-    float: right;
-    height: 60%;
-    margin: 5px;
+    width: auto;
+    height: 40%;
+    margin: 10px;
     border: 1px solid black;
 }
 
 footer {
-    height: 200px;
+    height: 10%;
     border: 1px solid black;
     width:auto;
     font-size:15px;
