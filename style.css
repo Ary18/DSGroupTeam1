@@ -1,18 +1,17 @@
 * {
-    font-size: 20px;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
 body{
     height: 1200px;
     margin: 10px;
-    background-color: rgb(255, 218, 187);
+    background-color: #F3F7D4;
     width: auto;
 }
 
 header {
     height: auto;
-    background-image: url('http://u01.appmifile.com/images/2016/06/19/d2f383a2-2e76-44b8-acab-283771f7be80.jpg');
+    background-image: url('https://images.hellomarket.co.uk/api/v1/BlogImage/5829ee36918eb80664d5a09f');
     margin: 5px;
     border: 1px solid black;
     width: auto;
@@ -21,14 +20,22 @@ header {
     background-size: cover;
 }
 #saluto {
-    border: 10px solid white;
     margin: 50px 50px;
-    color: rgb(203, 255, 124);
-
+    text-shadow: 0 0 10px  black;
+    color: beige;
 }
-p{
+p {
     display: inline-block;
     margin: 10px;
+
+}
+
+#intro p {
+    font-size: 34px;
+    color: #943D51;
+    margin-bottom: 3%;
+    font-weight: bold;
+
 
 }
 
@@ -57,6 +64,7 @@ h2::first-letter {
     text-transform: uppercase
 }
 
+
 section {
     margin: 5px;
     border: 1px solid black;
@@ -64,32 +72,35 @@ section {
     border-radius:5px;
     text-align: center;
     height: auto;
+    display: block;
+   
     
 }
 #posizione{
     padding: 2%;
-    background-color: #cccccc;
+    background-color:#943D51;
+    color: rgb(226, 238, 148);
+    font-size: 20px;
 }
 
 #dati {
     height: 100%;
-    background-color: white;
-    
+    background-color:rgb(226, 238, 148);
 }
 
 h3 {
-    color: #2727ce;
     font-weight: bold;
-    font-size: 34px;
+    font-size: 50px;
     margin: 15px;
+    color:#943D51;
 
 }
 h3::first-letter {
-    font-size: 34px;
+    font-size: 60px;
     text-transform: uppercase
 }
 #icona {
-    width:60px;
+    width:9%;
 
 }
 section p {
@@ -98,15 +109,15 @@ section p {
 }
 
 article {
-    width:40%;
+    width:100%;
     height: auto;
+    margin-bottom: 3%;
 }
 
 table {
-    width: 100%;
+    width: 90%;
     height: auto;
-    float: left;
-    margin: 10px;
+    margin: auto;
     border: 1px solid black;
 
 }
@@ -119,9 +130,9 @@ table tr td {
 }
 
 #mappa {
-    width: 50%;
+    width: 90%;
     height: 40%;
-    margin: 10px;
+    margin: auto;
     border: 1px solid black;
 }
 
@@ -131,7 +142,7 @@ footer {
     width:auto;
     font-size:15px;
     text-align:center;
-    background-color: #cccccc;
+    background-color:#093426;
     border-radius: 5px;
     margin: 5px;
 }
