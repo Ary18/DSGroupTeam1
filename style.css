@@ -10,7 +10,7 @@ body{
 
 header {
     height: auto;
-    background-image: url('https://images.hellomarket.co.uk/api/v1/BlogImage/5829ee36918eb80664d5a09f');
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbajV4aeAcQosJQkGDP-TfHP81xeEkCrKawspOjl9wFzerGlT3xw');
     border: 1px solid black;
     width: auto;
     background-position: 20% 20%;
@@ -75,6 +75,7 @@ section {
     padding: 2%;
     background-color:rgb(202, 216, 111);
     font-size: 20px;
+    color:#943D51;
 }
 
 #dati {
