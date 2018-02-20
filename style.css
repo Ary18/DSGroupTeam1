@@ -1,8 +1,6 @@
 * {
     font-size: 20px;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    padding: 3px;
-
 }
 
 body{
@@ -16,7 +14,7 @@ header {
     background-color: #cccccc;
     margin: 5px;
     border: 1px solid black;
-    width: 100%;
+    width: auto;
     border-radius: 5px;
 }
 
@@ -50,7 +48,7 @@ h2::first-letter {
 section {
     margin: 5px;
     border: 1px solid black;
-    width: 100%;
+    width: auto;
     border-radius:5px;
     text-align: center;
 }
@@ -109,7 +107,7 @@ table tr td {
 footer {
     height: 200px;
     border: 1px solid black;
-    width:100%;
+    width:auto;
     font-size:15px;
     text-align:center;
     background-color: #cccccc;
