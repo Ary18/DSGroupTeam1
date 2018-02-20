@@ -10,12 +10,13 @@ body{
 }
 
 header {
-    height: 200px;
-    background-color: #cccccc;
+    height: auto;
+    background-image: url('http://u01.appmifile.com/images/2016/06/19/d2f383a2-2e76-44b8-acab-283771f7be80.jpg');
     margin: 5px;
     border: 1px solid black;
     width: auto;
     border-radius: 5px;
+    background-position: center top;
 }
 
 h1 {
@@ -51,6 +52,7 @@ section {
     width: auto;
     border-radius:5px;
     text-align: center;
+    height: auto;
 }
 #posizione{
     height: 3%;
@@ -74,7 +76,7 @@ h3::first-letter {
     text-transform: uppercase
 }
 #icona {
-    width:16px;
+    width:50px;
 
 }
 section p {
