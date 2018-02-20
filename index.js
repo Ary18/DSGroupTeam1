@@ -1,6 +1,7 @@
 var currentPosition = '';
 var oldAccess = '';
 var latitulong = '';
+var restlatlng= '';
 function loadWeather() {
     var weather = new extractWeather();
     var mapProp = {
@@ -31,15 +32,11 @@ function loadWeather() {
     oldAccess = user + " ultimo accesso " + oldDate;
 
     var arrayId = ['nome', 'accesso', 'icona', 'temp', 'wind', 'cloudiness', 'pressure', 'humidity', 'sunrise', 'sunset'];
-    var arrayValue = [user, oldDate, weather.weather.icon, weather.main.temp, weather.wind.speed, weather.clouds.all, weather.main.pressure, weather.main.humidity, weather.sys.sunrise, weather.sys.sunset];
+    var arrayValue = [user, oldDate, weather.weather.icon, weather.main.temp, weather.wind, weather.weather.description, weather.main.pressure, weather.main.humidity, weather.sys.sunrise, weather.sys.sunset];
     for (var i = 0; i < arrayId.length; i++) {
         load(arrayId[i], arrayValue[i]);
-
     }
-
-    //alert(oldAccess);
 }
-
 
 function loadPosition() { //geolocalizza e restituisce l'indirizzo utilizzando il reverse geocoding
     var coordinate;
@@ -60,15 +57,13 @@ function funzioneOk(position) {
         };
         latitulong = mapProp.center;
         var name = document.getElementById('geoCoords');
-        name.innerText=latitulong;
-        
+        name.innerText = latitulong;
         var geocoder = new google.maps.Geocoder;
         geocoder.geocode({ 'location': mapProp.center }, function (results, status) {
             if (results[1]) {
                 currentPosition = results[1].formatted_address;
                 var luogo = document.getElementById('luogo');
-                luogo.innerText=currentPosition;
-            
+                luogo.innerText = currentPosition;
             } else {
                 alert('No Result');
             }
@@ -87,10 +82,38 @@ function funzioneErrore(error) {
 
 function load(id, value) {
     var name = document.getElementById(id);
-    if (id === 'image') {
-        name.src = value;
-    } else {
-    name.innerText = value;
-    console.log('foazdsfsaasr');
+    switch (id) {
+        case 'icona':
+            name.src = 'https://openweathermap.org/img/w/' + value + '.png';
+            break;
+        case 'temp':
+            var temp = value - 273.15;
+            name.innerText = temp.toFixed(1);
+            break;
+        case 'wind':
+            if (value.deg > 303.75 && value.deg < 326.25) {
+                name.innerText = 'Gently Breeze ' + value.speed + ' m/s, NordWest (' + value.deg + ')';
+            }
+            break;
+        case 'sunrise':
+            name.innerText = Unix_timestamp(value);
+            break;
+        case 'sunset':
+            name.innerText = Unix_timestamp(value);
+            break;
+        default:
+            name.innerText = value;
+            console.log('foazdsfsaasr');
     }
+
+
+
+}
+
+function Unix_timestamp(t) {
+    var dt = new Date(t * 1000);
+    var hr = dt.getHours();
+    var m = "0" + dt.getMinutes();
+    var s = "0" + dt.getSeconds();
+    return hr + ':' + m.substr(-2) + ':' + s.substr(-2);
 }
