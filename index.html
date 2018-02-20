@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -8,8 +9,8 @@
 </head>
 <body>
     <header id="testa">
-        <h1>Ciao Giovanni</h1>
-        <h2>Bentornato,</h2>
+        <h1 id="nome" >Ciao Giovanni</h1>
+        <h2 id="accesso" >Bentornato,</h2>
     </header>
     <section id="posizione">
         <p id="luogo">Attualmente ti trovi a Milano</p>
@@ -59,5 +60,8 @@
     <footer>
         <p>Il vostro meteo è stato offerto dal gruppo 1!</p>
     </footer>
+    <script src="weather.js"></script>
+    <script src="index.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1EHAsI359U-bXcnQc_2QdDCZ7eG4T8ZA&callback=loadWeather"></script>
 </body>
 </html>
