@@ -1,7 +1,6 @@
 var currentPosition = '';
 var oldAccess = '';
 var latitulong = '';
-var restlatlng= '';
 function loadWeather() {
     var weather = new extractWeather();
     var mapProp = {
@@ -18,7 +17,7 @@ function loadWeather() {
     loadPosition();
     var date = new Date();
     if (localStorage && localStorage['ultimoaccesso']) {
-        var oldDate = localStorage['ultimoaccesso'];
+        var oldDate = localStorage['ultimoaccesso'].slice(0,24);
     } else {
         var oldDate = "MAI";
     }
@@ -46,7 +45,6 @@ function loadPosition() { //geolocalizza e restituisce l'indirizzo utilizzando i
         alert('non disponibile');
     }
 }
-
 function funzioneOk(position) {
     if (position && position.coords) {
         var latitudine = position.coords.latitude;
@@ -57,7 +55,7 @@ function funzioneOk(position) {
         };
         latitulong = mapProp.center;
         var name = document.getElementById('geoCoords');
-        name.innerText = latitulong;
+        name.innerText = latitulong.lat().toFixed(2) +', '+latitulong.lng().toFixed(2);
         var geocoder = new google.maps.Geocoder;
         geocoder.geocode({ 'location': mapProp.center }, function (results, status) {
             if (results[1]) {
@@ -68,7 +66,6 @@ function funzioneOk(position) {
                 alert('No Result');
             }
         });
-        //alert("Accuratezza " + position.coords.accuracy + ' metri');
         var map = new google.maps.Map(document.getElementById("mappa"), mapProp);
         var marker = new google.maps.Marker({
             position: mapProp.center,
@@ -103,13 +100,8 @@ function load(id, value) {
             break;
         default:
             name.innerText = value;
-            console.log('foazdsfsaasr');
     }
-
-
-
 }
-
 function Unix_timestamp(t) {
     var dt = new Date(t * 1000);
     var hr = dt.getHours();
