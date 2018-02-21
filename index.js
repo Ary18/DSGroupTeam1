@@ -15,13 +15,12 @@ function loadWeather() {
         map: map
     });
     loadPosition();
-    var date = new Date();
     if (localStorage && localStorage['ultimoaccesso']) {
-        var oldDate = localStorage['ultimoaccesso'].slice(0,24);
+        var oldDate = localStorage['ultimoaccesso'];
     } else {
         var oldDate = "MAI";
     }
-    localStorage.setItem('ultimoaccesso', date.toString());
+    localStorage.setItem('ultimoaccesso', moment().format('LL')+' '+moment().format('LTS'));
     if (localStorage && localStorage['username']) {
         user = localStorage['username'];
     } else {
@@ -36,7 +35,6 @@ function loadWeather() {
         load(arrayId[i], arrayValue[i]);
     }
 }
-
 function loadPosition() { //geolocalizza e restituisce l'indirizzo utilizzando il reverse geocoding
     var coordinate;
     if ("geolocation" in navigator) {
@@ -55,11 +53,11 @@ function funzioneOk(position) {
         };
         latitulong = mapProp.center;
         var name = document.getElementById('geoCoords');
-        name.innerText = latitulong.lat().toFixed(2) +', '+latitulong.lng().toFixed(2);
+        name.innerText = latitulong.lat().toFixed(2) + ', ' + latitulong.lng().toFixed(2);
         var geocoder = new google.maps.Geocoder;
         geocoder.geocode({ 'location': mapProp.center }, function (results, status) {
-            if (results[1]) {
-                currentPosition = results[1].formatted_address;
+            if (results[0]) {
+                currentPosition = results[0].formatted_address;
                 var luogo = document.getElementById('luogo');
                 luogo.innerText = currentPosition;
             } else {
@@ -76,7 +74,6 @@ function funzioneOk(position) {
 function funzioneErrore(error) {
     alert(error.message);
 }
-
 function load(id, value) {
     var name = document.getElementById(id);
     switch (id) {
@@ -92,20 +89,10 @@ function load(id, value) {
                 name.innerText = 'Gently Breeze ' + value.speed + ' m/s, NordWest (' + value.deg + ')';
             }
             break;
-        case 'sunrise':
-            name.innerText = Unix_timestamp(value);
-            break;
-        case 'sunset':
-            name.innerText = Unix_timestamp(value);
+        case 'sunrise': case 'sunset':
+            name.innerText = moment.unix(value).format('kk:mm:ss ');
             break;
         default:
             name.innerText = value;
     }
-}
-function Unix_timestamp(t) {
-    var dt = new Date(t * 1000);
-    var hr = dt.getHours();
-    var m = "0" + dt.getMinutes();
-    var s = "0" + dt.getSeconds();
-    return hr + ':' + m.substr(-2) + ':' + s.substr(-2);
 }
