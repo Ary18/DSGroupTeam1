@@ -6,7 +6,7 @@ var oldAccess = '';
 var latitulong = '';
 var user = '';
 var map;
-function loadWeather() {
+window.addEventListener('load', function () {
     'use strict';
     map = new google.maps.Map(document.getElementById("mappa"), mapProp);
     var weather = new extractWeather();
@@ -35,7 +35,7 @@ function loadWeather() {
     for (var i = 0; i < arrayId.length; i++) {
         load(arrayId[i], arrayValue[i]);
     }
-}
+});
 function loadPosition() { //geolocalizza e restituisce l'indirizzo utilizzando il reverse geocoding
     'use strict';
     if ("geolocation" in navigator) {
