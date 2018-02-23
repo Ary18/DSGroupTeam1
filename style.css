@@ -1,0 +1,151 @@
+* {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+body{
+    height: 1200px;
+    background-color: #F3F7D4;
+    width: auto;
+}
+
+header {
+    height: auto;
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbajV4aeAcQosJQkGDP-TfHP81xeEkCrKawspOjl9wFzerGlT3xw');
+    border: 1px solid black;
+    width: auto;
+    background-position: 20% 20%;
+    background-size: cover;
+}
+#saluto {
+    margin: 50px 50px;
+    text-shadow: 0 0 10px  black;
+    color: beige;
+}
+p {
+    display: inline-block;
+    margin: 10px;
+
+}
+
+#intro p {
+    font-size: 34px;
+    color: #943D51;
+    margin-bottom: 3%;
+    font-weight: bold;
+
+
+}
+
+h1 {
+    position:relative;
+    top: 10%;
+    text-align: center;
+    margin:15px;
+    font-size: 30px;
+
+}
+h1::first-letter {
+    font-size: 34px;
+    text-transform: uppercase
+}
+
+h2 {
+    position: relative;
+    text-align: center;
+    margin: 15px;
+    font-size:25px
+}
+
+h2::first-letter {
+    font-size: 34px;
+    text-transform: uppercase
+}
+
+
+section {
+    border: 1px solid black;
+    width: auto;
+    text-align: center;
+    height: auto;
+    display: block;
+   
+    
+}
+#posizione{
+    padding: 2%;
+    background-color:rgb(202, 216, 111);
+    font-size: 20px;
+    color:#943D51;
+}
+
+#dati {
+    height: 120%;
+    background-color:rgb(226, 238, 148);
+
+}
+
+h3 {
+    font-weight: bold;
+    font-size: 50px;
+    margin: 15px;
+    color:#943D51;
+
+}
+h3::first-letter {
+    font-size: 60px;
+    text-transform: uppercase
+}
+#icona {
+    width:70px;
+
+}
+section p {
+    text-align: center;
+    margin: 5px;
+}
+
+article {
+    width:100%;
+    height: auto;
+    margin-bottom: 3%;
+}
+
+table {
+    width: 90%;
+    height: auto;
+    margin: auto;
+    border: 1px solid black;
+    font-size: 18px;
+
+}
+table tr td {
+    border: 1px solid black;
+    padding: 10px 5px;
+    vertical-align: middle;
+    text-transform: capitalize;
+    
+}
+
+tr:nth-child(odd) {
+    background-color:rgb(202, 216, 111);
+}
+
+#mappa {
+    width: 90%;
+    height: 40%;
+    margin: auto;
+    border: 1px solid black;
+}
+
+footer {
+    height: 10%;
+    border: 1px solid black;
+    width:auto;
+    font-size:15px;
+    text-align:center;
+    background-color:#093426;
+    color: beige;
+}
+footer p {
+    margin-top: 20px;
+}

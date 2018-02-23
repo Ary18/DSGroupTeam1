@@ -1,0 +1,39 @@
+{
+  "name": "demo2team",
+  "version": "1.0.0",
+  "description": "versione demo2 team 1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sorrentmutie/DSGroupTeam1.git"
+  },
+  "keywords": [
+    "demo",
+    "moment",
+    "git",
+    "npm"
+  ],
+  "author": "Team1",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sorrentmutie/DSGroupTeam1/issues"
+  },
+  "homepage": "https://github.com/sorrentmutie/DSGroupTeam1#readme",
+  "dependencies": {
+    "moment": "2.20.1"
+  },
+  "devDependencies": {
+    "gulp": "3.9.1",
+    "gulp-concat": "2.6.1",
+    "gulp-jshint": "2.1.0",
+    "gulp-sourcemaps": "2.6.4",
+    "gulp-uglify": "3.0.0",
+    "gulp-util": "3.0.8",
+    "jshint": "2.9.5",
+    "jshint-stylish": "2.2.1",
+    "logmon": "0.0.1"
+  }
+}
