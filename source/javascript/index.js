@@ -1,6 +1,6 @@
 /*global google */
 /*global moment */
-/*global extractWeather */
+/*global $ */
 var currentPosition = '';
 var oldAccess = '';
 var latitulong = '';
@@ -13,7 +13,6 @@ window.addEventListener('load', function () {
 });
 function loadSite(weather) {
     'use strict';
-    
     var oldDate = '';
     if (localStorage && localStorage.ultimoaccesso) {
         oldDate = localStorage.ultimoaccesso;
