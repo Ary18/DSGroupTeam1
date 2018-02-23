@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="style.css">
+    <link href="../node_modules/jquery-easy-loading/dist/jquery.loading.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Previsioni Meteo</title>
+</head>
+
+<body id="loading">
+    <header id="testa">
+        <div id="saluto">
+            <h1>Ciao
+                <p id="nome"></p>
+            </h1>
+            <h2>Bentornato, ultimo accesso
+                <p id="accesso"></p>
+            </h2>
+        </div>
+    </header>
+    <main id="container">
+        <section id="posizione">
+            <p>Attualmente ti trovi a: </p>
+            <p id="luogo"></p>
+        </section>
+        <section id="dati">
+            <h3>Le previsioni di oggi</h3>
+            <article>
+                <div id="intro">
+                    <figure>
+                        <img id="icona" alt="immagine">
+                    </figure>
+                    <p>Temperatura:
+                        <p id="temp"></p>
+                        <p>°C</p>
+                    </p>
+                </div>
+                <table>
+                    <tr>
+                        <td>Vento</td>
+                        <td id="wind"></td>
+                    </tr>
+                    <tr>
+                        <td>Tempo</td>
+                        <td id="cloudiness"></td>
+                    </tr>
+                    <tr>
+                        <td>Pressione</td>
+                        <td>
+                            <p id="pressure"></p>
+                            <p>hpa</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Umidità</td>
+                        <td>
+                            <p id="humidity"></p>
+                            <p>%</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Alba</td>
+                        <td id="sunrise"></td>
+
+                    </tr>
+                    <tr>
+                        <td>Tramonto</td>
+                        <td id="sunset"></td>
+                    </tr>
+                    <tr>
+                        <td>Coordinate</td>
+                        <td id="geoCoords"></td>
+                    </tr>
+                </table>
+            </article>
+            <article id="mappa">
+
+            </article>
+        </section>
+    </main>
+    <footer>
+        <p>Il vostro meteo è stato offerto dal gruppo 1!</p>
+    </footer>
+
+     <script src="../node_modules/moment/min/moment.min.js"></script>
+    <script src="../node_modules/moment/locale/it.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script src="../node_modules/jquery-easy-loading/dist/jquery.loading.js"></script>
+    <script src="bundle.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1EHAsI359U-bXcnQc_2QdDCZ7eG4T8ZA"></script>
+</body>
+
+</html>

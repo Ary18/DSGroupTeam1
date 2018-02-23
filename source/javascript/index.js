@@ -1,6 +1,6 @@
 /*global google */
 /*global moment */
-/*global extractWeather */
+/*global $ */
 var currentPosition = '';
 var oldAccess = '';
 var latitulong = '';
@@ -8,13 +8,24 @@ var user = '';
 var map;
 window.addEventListener('load', function () {
     'use strict';
-    map = new google.maps.Map(document.getElementById("mappa"), mapProp);
-    var weather = new extractWeather();
-    var mapProp = {
-        center: new google.maps.LatLng(9.00000, 10),
-        zoom: 16,
-    };
+    $('#loading').loading({
+        theme: 'dark',
+        message: 'one moment...',
+        hiddenClass: 'loading-hidden',
+        onStart: function (loading) {
+            loading.overlay.slideDown(400);
+        },
+        onStop: function (loading) {
+            loading.overlay.slideUp(400);
+        }
+    }, 'toggle');
+    $('#container').hide('toggle');
+    $('footer').hide('toggle');
     loadPosition();
+    
+});
+function loadSite(weather) {
+    'use strict';
     var oldDate = '';
     if (localStorage && localStorage.ultimoaccesso) {
         oldDate = localStorage.ultimoaccesso;
@@ -29,13 +40,18 @@ window.addEventListener('load', function () {
         localStorage.username = user;
     }
     oldAccess = user + " ultimo accesso " + oldDate;
-
+    console.log(weather);
     var arrayId = ['nome', 'accesso', 'icona', 'temp', 'wind', 'cloudiness', 'pressure', 'humidity', 'sunrise', 'sunset'];
-    var arrayValue = [user, oldDate, weather.weather.icon, weather.main.temp, weather.wind, weather.weather.description, weather.main.pressure, weather.main.humidity, weather.sys.sunrise, weather.sys.sunset];
+    var arrayValue = [user, oldDate, weather.weather[0].icon, weather.main.temp, weather.wind, weather.weather[0].description, weather.main.pressure, weather.main.humidity, weather.sys.sunrise, weather.sys.sunset];
     for (var i = 0; i < arrayId.length; i++) {
         load(arrayId[i], arrayValue[i]);
     }
-});
+    $('#container').show('toggle');
+    $('footer').show('toggle');
+    $('#loading').loading('toggle');
+}
+
+
 function loadPosition() { //geolocalizza e restituisce l'indirizzo utilizzando il reverse geocoding
     'use strict';
     if ("geolocation" in navigator) {
@@ -54,6 +70,8 @@ function funzioneOk(position) {
             zoom: 16,
         };
         latitulong = mapProp.center;
+        
+
         var name = document.getElementById('geoCoords');
         name.innerText = latitulong.lat().toFixed(2) + ', ' + latitulong.lng().toFixed(2);
         var geocoder = new google.maps.Geocoder();
@@ -71,10 +89,12 @@ function funzioneOk(position) {
             position: mapProp.center,
             map: map
         });
+        $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat='+latitulong.lat()+'&lon='+latitulong.lng()+'&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadSite);
     }
 }
 function funzioneErrore(error) {
     'use strict';
+    $('#loading').loading('toggle');
     alert(error.message);
 }
 function load(id, value) {
@@ -89,9 +109,10 @@ function load(id, value) {
             name.innerText = temp.toFixed(1);
             break;
         case 'wind':
-            if (value.deg > 303.75 && value.deg < 326.25) {
-                name.innerText = 'Gently Breeze ' + value.speed + ' m/s, NordWest (' + value.deg + ')';
-            }
+                if(value.deg===undefined){
+                    name.innerText = 'calmo';
+                }else{
+                name.innerText = ' ' + value.speed + ' m/s,  (' + value.deg + ')';}
             break;
         case 'sunrise': case 'sunset':
             name.innerText = moment.unix(value).format('kk:mm:ss ');

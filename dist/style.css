@@ -3,7 +3,8 @@
 }
 
 body{
-    height: 1200px;
+    height: 100%;
+    margin: 0;
     background-color: #F3F7D4;
     width: auto;
 }
@@ -138,9 +139,10 @@ tr:nth-child(odd) {
 }
 
 footer {
+    position: relative;
+    width: 100%;
     height: 10%;
     border: 1px solid black;
-    width:auto;
     font-size:15px;
     text-align:center;
     background-color:#093426;
@@ -149,3 +151,4 @@ footer {
 footer p {
     margin-top: 20px;
 }
+
