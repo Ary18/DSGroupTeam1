@@ -8,6 +8,19 @@ var user = '';
 var map;
 window.addEventListener('load', function () {
     'use strict';
+    $('#loading').loading({
+        theme: 'dark',
+        message: 'one moment...',
+        hiddenClass: 'loading-hidden',
+        onStart: function (loading) {
+            loading.overlay.slideDown(400);
+        },
+        onStop: function (loading) {
+            loading.overlay.slideUp(400);
+        }
+    }, 'toggle');
+    $('#container').hide('toggle');
+    $('footer').hide('toggle');
     loadPosition();
     
 });
@@ -33,6 +46,9 @@ function loadSite(weather) {
     for (var i = 0; i < arrayId.length; i++) {
         load(arrayId[i], arrayValue[i]);
     }
+    $('#container').show('toggle');
+    $('footer').show('toggle');
+    $('#loading').loading('toggle');
 }
 
 
@@ -78,6 +94,7 @@ function funzioneOk(position) {
 }
 function funzioneErrore(error) {
     'use strict';
+    $('#loading').loading('toggle');
     alert(error.message);
 }
 function load(id, value) {
