@@ -21,8 +21,8 @@ window.addEventListener('load', function () {
     // }, 'toggle');
     // $('#container').hide('toggle');
     // $('footer').hide('toggle');
+
     loadPosition();
-    
 });
 function loadSite(weather) {
     'use strict';
@@ -40,7 +40,6 @@ function loadSite(weather) {
         localStorage.username = user;
     }
     oldAccess = user + " ultimo accesso " + oldDate;
-    console.log(weather);
     var arrayId = ['nome', 'accesso', 'icona', 'temp', 'wind', 'cloudiness', 'pressure', 'humidity', 'sunrise', 'sunset'];
     var arrayValue = [user, oldDate, weather.weather[0].icon, weather.main.temp, weather.wind, weather.weather[0].description, weather.main.pressure, weather.main.humidity, weather.sys.sunrise, weather.sys.sunset];
     for (var i = 0; i < arrayId.length; i++) {
@@ -50,8 +49,32 @@ function loadSite(weather) {
     // $('footer').show('toggle');
     // $('#loading').loading('toggle');
 }
-
-
+function findPosition(position) {
+    'use strict';
+    var mapProp;
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ 'address': position }, function (results, status) {
+        if (status === 'OK') {
+            mapProp = {
+                center: results[0].geometry.location,
+                zoom: 16,
+            };
+            map = new google.maps.Map(document.getElementById("mappa"), mapProp);
+            new google.maps.Marker({
+                position: mapProp.center,
+                map: map
+            });
+            latitulong = mapProp.center;
+            var name = document.getElementById('geoCoords');
+            name.innerText = latitulong.lat().toFixed(2) + ', ' + latitulong.lng().toFixed(2);
+            var luogo = document.getElementById('luogo');
+            luogo.innerText = results[0].formatted_address;
+            $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadSite);
+        } else {
+            alert('No Result');
+        }
+    });
+}
 function loadPosition() { //geolocalizza e restituisce l'indirizzo utilizzando il reverse geocoding
     'use strict';
     if ("geolocation" in navigator) {
@@ -70,8 +93,6 @@ function funzioneOk(position) {
             zoom: 16,
         };
         latitulong = mapProp.center;
-        
-
         var name = document.getElementById('geoCoords');
         name.innerText = latitulong.lat().toFixed(2) + ', ' + latitulong.lng().toFixed(2);
         var geocoder = new google.maps.Geocoder();
@@ -89,7 +110,7 @@ function funzioneOk(position) {
             position: mapProp.center,
             map: map
         });
-        $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat='+latitulong.lat()+'&lon='+latitulong.lng()+'&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadSite);
+        $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadSite);
     }
 }
 function funzioneErrore(error) {
@@ -109,10 +130,11 @@ function load(id, value) {
             name.innerText = temp.toFixed(1);
             break;
         case 'wind':
-                if(value.deg===undefined){
-                    name.innerText = 'calmo';
-                }else{
-                name.innerText = ' ' + value.speed + ' m/s,  (' + value.deg + ')';}
+            if (value.deg === undefined) {
+                name.innerText = 'calmo';
+            } else {
+                name.innerText = ' ' + value.speed + ' m/s,  (' + value.deg + ')';
+            }
             break;
         case 'sunrise': case 'sunset':
             name.innerText = moment.unix(value).format('kk:mm:ss ');
@@ -121,3 +143,7 @@ function load(id, value) {
             name.innerText = value;
     }
 }
+$('#btSearch').click(function () {
+    'use strict';
+    findPosition($('#srch-term').val());
+});
