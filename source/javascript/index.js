@@ -64,6 +64,12 @@ function findPosition(position) {
                 position: mapProp.center,
                 map: map
             });
+            map = new google.maps.Map(document.getElementById("mappa2"), mapProp);
+            new google.maps.Marker({
+                position: mapProp.center,
+                map: map
+            });
+            
             latitulong = mapProp.center;
             var name = document.getElementById('geoCoords');
             name.innerText = latitulong.lat().toFixed(2) + ', ' + latitulong.lng().toFixed(2);
@@ -106,6 +112,11 @@ function funzioneOk(position) {
             }
         });
         map = new google.maps.Map(document.getElementById("mappa"), mapProp);
+        new google.maps.Marker({
+            position: mapProp.center,
+            map: map
+        });
+        map = new google.maps.Map(document.getElementById("mappa2"), mapProp);
         new google.maps.Marker({
             position: mapProp.center,
             map: map

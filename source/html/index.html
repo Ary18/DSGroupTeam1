@@ -12,6 +12,7 @@
 </head>
 
 <body id="loading" class="container-fluid">
+
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse ">
         <button class="navbar-toggler navbar-toggler-right " type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -28,33 +29,61 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
+                    <a class="nav-link" href="#">Chi Siamo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
+                    <a class="nav-link" href="#">Contatti</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
+
             </ul>
-            <div class=" pull-right">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
-                        <div class="input-group-btn">
-                            <button id="btSearch" class="btn btn-primary" type="submit">GO</button>
+
+            <div id="modale" >
+
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Cerca la tua posizione!</button>
+
+                    <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title"></h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="" method="dialog">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Cerca Località" name="srch-term" id="srch-term">
+                                            <div class="input-group-btn">
+                                                <button id="btSearch" class="btn btn-primary" type="submit">GO</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                        <article id="mappa2" style="height:400px; width: 100%"></article>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
+                </div>
+
             </div>
         </div>
+           
+
+               
 
     </nav>
     <header id="testa" class="jumbotron jumbotron-fluid p-2 my-3 shadow-nohover">
-        <div id="saluto" class="display-3 m-2">
-            <h1 class="text-center m-2">Bentornato
+        <div id="saluto" class="display-3 m-4">
+            <h1 class="text-center">Bentornato
                 <span id="nome"></span>!</h1>
         </div>
         <hr class="my-2">
-        <ul class="list-group m-2">
+        <ul class="list-group m-2 list-group m-2 align-items-center">
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 Ultimo accesso
                 <span id="accesso" class="badge badge-primary badge-pill"></span>
@@ -120,7 +149,7 @@
                     </tr>
                 </table>
             </article>
-            <article id="mappa"style="height:400px; width: 400px"></article>
+            <article id="mappa" style="height:400px; width: 400px"></article>
         </section>
     </main>
     <div id="wrap">

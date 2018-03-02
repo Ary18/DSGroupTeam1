@@ -136,6 +136,12 @@ tr:nth-child(odd) {
     margin: auto;
     border: 1px solid black;
 }
+#mappa2{
+    width: 90%;
+    height: 500px;
+    margin: auto;
+    border: 1px solid black;
+}
 
 footer {
     clear: both;
@@ -151,4 +157,5 @@ footer {
 footer p {
     margin-top: 20px;
 }
+
 
