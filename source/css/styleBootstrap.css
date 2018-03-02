@@ -63,3 +63,26 @@ border-bottom:#303635;
 .modal-footer{
 border-top:#303635;
 }
+.fl{
+    /* background-color: #15737F;  */
+    /* background-color: #929fba;  */
+    background-color: #3e4451; 
+    color: white;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    width: 100%;
+}
+.figureImg{
+    text-align: center;
+}
+.shadowLink{
+    box-shadow: 0px 0px 4px -1px #2d2e30, 0px 4px 5px 0px #2d2e30, 4px 0px 10px 0px #2d2e30;
+}
+.rounded{
+    border: 1px;
+    border-radius: 30px;
+    margin: 20px 0;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0px 0px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 4px 0px 10px 0px rgba(0, 0, 0, 0.12);
+}
