@@ -228,7 +228,6 @@ function funzioneOk(position) {
 }
 function funzioneErrore(error) {
     'use strict';
-    $('#loading').loading('toggle');
     alert(error.message);
 }
 function load(id, value, j) {
