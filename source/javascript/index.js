@@ -8,6 +8,7 @@ var user = '';
 var map;
 var prevision;
 var indice = 0;
+var oldDay;
 window.addEventListener('load', function () {
     'use strict';
     // $('#loading').loading({
@@ -71,27 +72,54 @@ function addRow(array) {
     }
     $('#tableForecast').append(tr);
 }
-function loadForecast(forecast, j) {
+function loadForecast(forecast, back) {
     'use strict';
     var weather;
+
     if (forecast) {
         prevision = forecast;
     }
-    console.log(j);
-    if (j === 'success') {
-        j = 0;
+    if (!oldDay) {
+        oldDay = {
+            date: moment.unix(prevision.list[0].dt).format('L'),
+            index: 0,
+        };
     }
-    deleteRow();
-    for (var k = 0; k < 8; k++) {
-        weather = prevision.list[j];
-        j++;
-        var arrayId = ['data', 'time' + j, 'ficona' + j, 'fcloudiness' + j, 'ftemp' + j];
-        var arrayValue = [weather.dt, weather.dt, weather.weather[0].icon, weather.weather[0].description, weather.main.temp];
-        addRow(arrayId);
-        for (var i = 0; i < arrayId.length; i++) {
-            load(arrayId[i], arrayValue[i], j);
+    if (back) {
+        for (var j = 0; j < 16; j++) {
+            if (oldDay.index !== 0) {
+                oldDay.index--;
+                oldDay.date = moment.unix(prevision.list[oldDay.index].dt).format('L');
+            } else {
+                j = 16;
+            }
         }
     }
+    console.log(moment.unix(prevision.list[oldDay.index].dt).format('LLL'));
+    console.log(oldDay.date);
+    deleteRow();
+    weather = prevision.list[oldDay.index];
+    var arrayId = ['data', 'time' + oldDay.index, 'ficona' + oldDay.index, 'fcloudiness' + oldDay.index, 'ftemp' + oldDay.index];
+    var arrayValue = [weather.dt, weather.dt, weather.weather[0].icon, weather.weather[0].description, weather.main.temp];
+    load(arrayId[0], arrayValue[0], oldDay.index);
+    while (oldDay.date === moment.unix(weather.dt).format('L')) {
+        if (oldDay.index < 39) {
+            oldDay.index++;
+            oldDay.date = moment.unix(weather.dt).format('L');
+            weather = prevision.list[oldDay.index];
+            arrayId = ['data', 'time' + oldDay.index, 'ficona' + oldDay.index, 'fcloudiness' + oldDay.index, 'ftemp' + oldDay.index];
+            arrayValue = [weather.dt, weather.dt, weather.weather[0].icon, weather.weather[0].description, weather.main.temp];
+            addRow(arrayId);
+            for (var i = 1; i < arrayId.length; i++) {
+                load(arrayId[i], arrayValue[i], oldDay.index);
+            }
+        }else{
+            weather = prevision.list[40];
+            oldDay.date = moment.unix(weather.dt).format('L');
+        }
+    }
+    oldDay.date = moment.unix(weather.dt).format('L');
+    console.log(oldDay.index);
 }
 function findPosition(position) {
     'use strict';
@@ -199,16 +227,10 @@ $('#btSearch').click(function () {
 
 $('#btForward').click(function () {
     'use strict';
-    if (indice >= 0 && indice < 31) {
-        indice += 8;
-    }
-    loadForecast(undefined, indice);
+    loadForecast(undefined, false);
 });
 
 $('#btBack').click(function () {
     'use strict';
-    if (indice > 0 && indice <= 39) {
-        indice -= 8;
-    }
-    loadForecast(undefined, indice);
+    loadForecast(undefined, true);
 });
