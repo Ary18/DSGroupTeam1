@@ -161,8 +161,8 @@ function findPosition(position) {
                     console.log(event.latLng);   // Get latlong info as object.
                 });
             });
-            $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadCurrentWeather);
-            $.getJSON('http://api.openweathermap.org/data/2.5/forecast?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadForecast);
+            $.getJSON('https://api.openweathermap.org/data/2.5/weather?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadCurrentWeather);
+            $.getJSON('https://api.openweathermap.org/data/2.5/forecast?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadForecast);
         } else {
             alert('No Result');
         }
@@ -170,13 +170,16 @@ function findPosition(position) {
 }
 function loadPosition() { //geolocalizza e restituisce l'indirizzo utilizzando il reverse geocoding
     'use strict';
-    if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(funzioneOk, funzioneErrore);
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(loadMap, noGeolocation);
     } else {
         alert('non disponibile');
     }
 }
-function funzioneOk(position) {
+function noGeolocation(){
+    $("#myModal").modal();
+}
+function loadMap(position) {
     'use strict';
     if (position && position.coords) {
         var latitudine = position.coords.latitude;
@@ -222,8 +225,8 @@ function funzioneOk(position) {
                 console.log(event.latLng);   // Get latlong info as object.
             });
         });
-        $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadCurrentWeather);
-        $.getJSON('http://api.openweathermap.org/data/2.5/forecast?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadForecast);
+        $.getJSON('https://api.openweathermap.org/data/2.5/weather?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadCurrentWeather);
+        $.getJSON('https://api.openweathermap.org/data/2.5/forecast?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadForecast);
     }
 }
 function funzioneErrore(error) {
@@ -261,6 +264,11 @@ function load(id, value, j) {
 $('#btSearch').click(function () {
     'use strict';
     findPosition($('#srch-term').val());
+});
+$("#modalSearch").on('keyup', function (e) {
+    if (e.keyCode == 13) {
+        findPosition($('#srch-term').val());
+    }
 });
 
 $('#btForward').click(function () {
