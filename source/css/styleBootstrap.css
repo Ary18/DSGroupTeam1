@@ -91,5 +91,12 @@ section p{
     margin-top: 12px;
 }
 .btn{
-    background-color: #a6abb2;
+    background-color: #303635;
+    color: white;
+}
+#btForward{
+    float: right;
+}
+#btBack{
+    float: left;
 }
