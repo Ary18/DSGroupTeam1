@@ -2,33 +2,77 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="../css/style.css">
-    <link href="../../node_modules/jquery-easy-loading/dist/jquery.loading.css" rel="stylesheet">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/styleBootstrap.css">
     <title>Previsioni Meteo</title>
 </head>
 
-<body id="loading">
-    <header id="testa">
-        <div id="saluto">
-            <h1>Ciao
-                <p id="nome"></p>
-            </h1>
-            <h2>Bentornato, ultimo accesso
-                <p id="accesso"></p>
-            </h2>
+<body id="loading" class="container-fluid">
+    <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse ">
+        <button class="navbar-toggler navbar-toggler-right " type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+            <img src="../img/logo.png" width="30" height="30" alt="">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+            </ul>
+            <div class=" pull-right">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+                        <div class="input-group-btn">
+                            <button id="btSearch" class="btn btn-primary" type="submit">GO</button>
+                        </div>
+                    </div>
+            </div>
         </div>
+
+    </nav>
+    <header id="testa" class="jumbotron jumbotron-fluid p-2 my-3 shadow-nohover">
+        <div id="saluto" class="display-3 m-2">
+            <h1 class="text-center m-2">Bentornato
+                <span id="nome"></span>!</h1>
+        </div>
+        <hr class="my-2">
+        <ul class="list-group m-2">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Ultimo accesso
+                <span id="accesso" class="badge badge-primary badge-pill"></span>
+            </li>
+        </ul>
     </header>
-    <main id="container">
+
+    <main id="container" class="card align-items-center shadow-nohover">
         <section id="posizione">
-            <p>Attualmente ti trovi a: </p>
-            <p id="luogo"></p>
+            <p>Attualmente ti trovi a:
+                <span id="luogo"></span>
+            </p>
+
         </section>
         <section id="dati">
-            <h3>Le previsioni di oggi</h3>
-            <article>
+
+            <article class="card align-items-center">
+                <h3>Le previsioni di oggi</h3>
                 <div id="intro">
                     <figure>
                         <img id="icona" alt="immagine">
@@ -76,14 +120,12 @@
                     </tr>
                 </table>
             </article>
-            <article id="mappa">
-
-            </article>
+            <article id="mappa" <article id="mappa" style="height:400px; width: 400px"> </article>> </article>
         </section>
     </main>
     <div id="wrap">
-       
-          </div>
+
+    </div>
     <footer>
         <p>Il vostro meteo è stato offerto dal gruppo 1!</p>
     </footer>
@@ -91,8 +133,9 @@
     <script src="../../node_modules/moment/min/moment.min.js"></script>
     <script src="../../node_modules/moment/locale/it.js"></script>
     <script src="../../node_modules/jquery/dist/jquery.js"></script>
-    <script src="../../node_modules/jquery-easy-loading/dist/jquery.loading.js"></script>
     <script src="../javascript/index.js"></script>
+    <script src="../../node_modules/tether/dist/js/tether.js"></script>
+    <script src="../../node_modules/bootstrap/dist/js/bootstrap.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1EHAsI359U-bXcnQc_2QdDCZ7eG4T8ZA"></script>
 </body>
 
