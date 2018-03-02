@@ -6,6 +6,8 @@ var oldAccess = '';
 var latitulong = '';
 var user = '';
 var map;
+var prevision;
+var indice=0;
 window.addEventListener('load', function () {
     'use strict';
     // $('#loading').loading({
@@ -23,9 +25,11 @@ window.addEventListener('load', function () {
     // $('footer').hide('toggle');
 
     loadPosition();
+
 });
-function loadSite(weather) {
+function loadCurrentWeather(weather) {
     'use strict';
+
     var oldDate = '';
     if (localStorage && localStorage.ultimoaccesso) {
         oldDate = localStorage.ultimoaccesso;
@@ -49,6 +53,25 @@ function loadSite(weather) {
     // $('footer').show('toggle');
     // $('#loading').loading('toggle');
 }
+function loadForecast(forecast, j) {
+    'use strict';
+    var weather;
+    if (forecast) {
+        prevision = forecast;
+    }
+    console.log(j);
+    if(j==='success'){
+        j=0;
+    }
+    weather = prevision.list[j];
+    console.log(prevision);
+    var arrayId = ['ficona', 'ftemp', 'fwind', 'fcloudiness', 'fpressure', 'fhumidity'];
+    var arrayValue = [weather.weather[0].icon, weather.main.temp, weather.wind, weather.weather[0].description, weather.main.pressure, weather.main.humidity];
+    for (var i = 0; i < arrayId.length; i++) {
+        load(arrayId[i], arrayValue[i]);
+    }
+}
+
 function findPosition(position) {
     'use strict';
     var mapProp;
@@ -69,7 +92,8 @@ function findPosition(position) {
             name.innerText = latitulong.lat().toFixed(2) + ', ' + latitulong.lng().toFixed(2);
             var luogo = document.getElementById('luogo');
             luogo.innerText = results[0].formatted_address;
-            $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadSite);
+            $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadCurrentWeather);
+            $.getJSON('http://api.openweathermap.org/data/2.5/forecast?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadForecast);
         } else {
             alert('No Result');
         }
@@ -110,7 +134,8 @@ function funzioneOk(position) {
             position: mapProp.center,
             map: map
         });
-        $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadSite);
+        $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadCurrentWeather);
+        $.getJSON('http://api.openweathermap.org/data/2.5/forecast?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadForecast);
     }
 }
 function funzioneErrore(error) {
@@ -122,14 +147,14 @@ function load(id, value) {
     'use strict';
     var name = document.getElementById(id);
     switch (id) {
-        case 'icona':
+        case 'icona': case 'ficona':
             name.src = 'https://openweathermap.org/img/w/' + value + '.png';
             break;
-        case 'temp':
+        case 'temp': case 'ftemp':
             var temp = value - 273.15;
             name.innerText = temp.toFixed(1);
             break;
-        case 'wind':
+        case 'wind': case 'fwind':
             if (value.deg === undefined) {
                 name.innerText = 'calmo';
             } else {
@@ -146,4 +171,20 @@ function load(id, value) {
 $('#btSearch').click(function () {
     'use strict';
     findPosition($('#srch-term').val());
+});
+
+$('#btForward').click(function () {
+    'use strict';
+    if (indice >= 0 && indice < 39) {
+        indice+=8;
+    }
+    loadForecast(undefined, indice);
+});
+
+$('#btBack').click(function () {
+    'use strict';
+    if (indice > 0 && indice <= 39) {
+        indice-=8;
+    }
+    loadForecast(undefined, indice);
 });

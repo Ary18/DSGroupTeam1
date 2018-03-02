@@ -122,8 +122,54 @@
                     </tr>
                 </table>
             </article>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#forecast">
+                Prossimi giorni...
+        </button>
             <article id="mappa" style="height:400px; width: 400px"></article>
         </section>
+
+        <section id="forecast" class="modal row">
+
+            <article class=" card align-items-center">
+                <h3 id="data">Le previsioni di oggi</h3>
+                <div id="intro">
+                    
+                </div>
+                <table>
+                    <tr>
+                        <td><figure><img id="ficona" alt="immagine"></figure></td>
+                        <td><p>Temperatura:</p><p id="ftemp"></p><p>°C</p></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Vento</td>
+                        <td id="fwind"></td>
+                    </tr>
+                    <tr>
+                        <td>Tempo</td>
+                        <td id="fcloudiness"></td>
+                    </tr>
+                    <tr>
+                        <td>Pressione</td>
+                        <td>
+                            <p id="fpressure"></p>
+                            <p>hpa</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Umidità</td>
+                        <td>
+                            <p id="fhumidity"></p>
+                            <p>%</p>
+                        </td>
+                    </tr>
+                </table>
+                <button class="btn btn-primary" id="btBack"><</button>
+                <button class="btn btn-primary" id="btForward">></button>
+            </article>
+        </section>
+
     </main>
     <div id="wrap">
 
