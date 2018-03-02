@@ -78,47 +78,60 @@
                         <img id="icona" alt="immagine">
                     </figure>
                     <p>Temperatura:
-                        <p id="temp"></p>
-                        <p>°C</p>
+                        <span id="temp"></span>
+                        <span>°C</span>
                     </p>
                 </div>
-                <table>
-                    <tr>
-                        <td>Vento</td>
-                        <td id="wind"></td>
-                    </tr>
-                    <tr>
-                        <td>Tempo</td>
-                        <td id="cloudiness"></td>
-                    </tr>
-                    <tr>
-                        <td>Pressione</td>
-                        <td>
-                            <p id="pressure"></p>
-                            <p>hpa</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Umidità</td>
-                        <td>
-                            <p id="humidity"></p>
-                            <p>%</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Alba</td>
-                        <td id="sunrise"></td>
 
-                    </tr>
-                    <tr>
-                        <td>Tramonto</td>
-                        <td id="sunset"></td>
-                    </tr>
-                    <tr>
-                        <td>Coordinate</td>
-                        <td id="geoCoords"></td>
-                    </tr>
+                <!--Table-->
+                <table class="table table-striped">
+
+                    <!--Table body-->
+                    <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td>Vento</td>
+                            <td id="wind"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"></th>
+                            <td>Tempo</td>
+                            <td id="cloudiness"></td>
+                        <tr>
+                            <th scope="row"></th>
+                            <td>Pressione</td>
+                            <td>
+                                <span id="pressure"></span>hpa
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"></th>
+                            <td>Umidità</td>
+                            <td>
+                                <span id="humidity"></span>%
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"></th>
+                            <td>Alba</td>
+                            <td id="sunrise"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"></th>
+                            <td>Tramonto</td>
+                            <td id="sunset"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"></th>
+                            <td>Coordinate</td>
+                            <td id="geoCoords"></td>
+                        </tr>
+                    </tbody>
+                    <!--Table body-->
+
                 </table>
+                <!--Table-->
+
             </article>
             <article id="mappa" style="height:400px; width: 400px"></article>
         </section>
@@ -138,7 +151,7 @@
                 <!--Grid column-->
                 <div class="col-md-2 mb-3">
                     <h6 class="title font-weight-bold">
-                        <a href="#!">Home</a>
+                        <a href="#!" style="color:white">Home</a>
                     </h6>
                 </div>
                 <!--Grid column-->
@@ -146,7 +159,7 @@
                 <!--Grid column-->
                 <div class="col-md-2 mb-3">
                     <h6 class="title font-weight-bold">
-                        <a href="#!">Chi siamo</a>
+                        <a href="#!" style="color:white">Chi siamo</a>
                     </h6>
                 </div>
                 <!--Grid column-->
@@ -154,7 +167,7 @@
                 <!--Grid column-->
                 <div class="col-md-2 mb-3">
                     <h6 class="title font-weight-bold">
-                        <a href="#!">Contattaci</a>
+                        <a href="#!" style="color:white">Contattaci</a>
                     </h6>
                 </div>
                 <!--Grid column-->
@@ -191,35 +204,40 @@
                             <li class="list-inline-item">
                                 <a class="btn-floating btn-sm btn-fb mx-1" href="https://www.facebook.com/">
                                     <i class="fa fa-facebook">
-                                        <img src="http://www.colaisteiosagainport.ie/wp-content/files/images/2015/05/Facebook_logo_square-300x300.png" class="rounded-circle shadow-nohover" width="60px"> 
+                                        <img src="http://www.colaisteiosagainport.ie/wp-content/files/images/2015/05/Facebook_logo_square-300x300.png" class="rounded-circle shadow-nohover"
+                                            width="60px">
                                     </i>
                                 </a>
                             </li>
                             <li class="list-inline-item">
                                 <a class="btn-floating btn-sm btn-tw mx-1" href="https://twitter.com/">
                                     <i class="fa fa-twitter">
-                                       <img src="https://cdn1.iconfinder.com/data/icons/logotypes/32/square-twitter-256.png" class="rounded-circle shadow-nohover" width="60px"> 
+                                        <img src="https://cdn1.iconfinder.com/data/icons/logotypes/32/square-twitter-256.png" class="rounded-circle shadow-nohover"
+                                            width="60px">
                                     </i>
                                 </a>
                             </li>
                             <li class="list-inline-item">
                                 <a class="btn-floating btn-sm btn-gplus mx-1" href="https://plus.google.com/discover">
                                     <i class="fa fa-google-plus">
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Google_circle.svg/512px-Google_circle.svg.png" class="rounded-circle shadow-nohover" width="60px">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Google_circle.svg/512px-Google_circle.svg.png" class="rounded-circle shadow-nohover"
+                                            width="60px">
                                     </i>
                                 </a>
                             </li>
                             <li class="list-inline-item">
                                 <a class="btn-floating btn-sm btn-li mx-1" href="https://www.linkedin.com/">
                                     <i class="fa fa-linkedin">
-                                        <img src="https://cdn1.iconfinder.com/data/icons/logotypes/32/square-linkedin-512.png" class="rounded-circle shadow-nohover" width="60px">    
+                                        <img src="https://cdn1.iconfinder.com/data/icons/logotypes/32/square-linkedin-512.png" class="rounded-circle shadow-nohover"
+                                            width="60px">
                                     </i>
                                 </a>
                             </li>
                             <li class="list-inline-item">
                                 <a class="btn-floating btn-sm btn-instagram mx-1" href="https://www.instagram.com/?hl=en">
-                                    <i class="fa fa-instagram"> 
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/599px-Instagram_icon.png" class="rounded-circle shadow-nohover" width="60px">
+                                    <i class="fa fa-instagram">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/599px-Instagram_icon.png" class="rounded-circle shadow-nohover"
+                                            width="60px">
                                     </i>
                                 </a>
                             </li>
@@ -236,11 +254,11 @@
 
         <!--Copyright-->
         <div class="footer-copyright py-3 text-center">
-                <div class="container-fluid">
-                    © 2018 Copyright: Team 1
-                </div>
+            <div class="container-fluid">
+                © 2018 Copyright: Team 1
             </div>
-            <!--/Copyright-->
+        </div>
+        <!--/Copyright-->
 
     </footer>
     <!--/Footer-->
