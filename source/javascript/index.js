@@ -6,8 +6,8 @@ var oldAccess = '';
 var latitulong = '';
 var user = '';
 var map;
+var map2;
 var prevision;
-var indice = 0;
 var oldDay;
 window.addEventListener('load', function () {
     'use strict';
@@ -28,6 +28,7 @@ window.addEventListener('load', function () {
     loadPosition();
 
 });
+
 function loadCurrentWeather(weather) {
     'use strict';
 
@@ -113,7 +114,7 @@ function loadForecast(forecast, back) {
             for (var i = 1; i < arrayId.length; i++) {
                 load(arrayId[i], arrayValue[i], oldDay.index);
             }
-        }else{
+        } else {
             weather = prevision.list[40];
             oldDay.date = moment.unix(weather.dt).format('L');
         }
@@ -136,17 +137,30 @@ function findPosition(position) {
                 position: mapProp.center,
                 map: map
             });
-            map = new google.maps.Map(document.getElementById("mappa2"), mapProp);
+            map2 = new google.maps.Map(document.getElementById("mappa2"), mapProp);
             new google.maps.Marker({
                 position: mapProp.center,
-                map: map
+                map: map2
             });
-            
             latitulong = mapProp.center;
             var name = document.getElementById('geoCoords');
             name.innerText = latitulong.lat().toFixed(2) + ', ' + latitulong.lng().toFixed(2);
             var luogo = document.getElementById('luogo');
             luogo.innerText = results[0].formatted_address;
+            google.maps.event.addListener(map2, 'click', function (event) {
+                'use strict';
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ 'location': event.latLng }, function (results) {
+                    if (results[0]) {
+                        currentPosition = results[0].formatted_address;
+                        $('#srch-term').val(currentPosition);//document.getElementById('srch-term');
+                        
+                    } else {
+                        alert('No Result');
+                    }
+                    console.log(event.latLng);   // Get latlong info as object.
+                });
+            });
             $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadCurrentWeather);
             $.getJSON('http://api.openweathermap.org/data/2.5/forecast?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadForecast);
         } else {
@@ -189,10 +203,24 @@ function funzioneOk(position) {
             position: mapProp.center,
             map: map
         });
-        map = new google.maps.Map(document.getElementById("mappa2"), mapProp);
+        map2 = new google.maps.Map(document.getElementById("mappa2"), mapProp);
         new google.maps.Marker({
             position: mapProp.center,
-            map: map
+            map: map2
+        });
+        google.maps.event.addListener(map2, 'click', function (event) {
+            'use strict';
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ 'location': event.latLng }, function (results) {
+                if (results[0]) {
+                    currentPosition = results[0].formatted_address;
+                    $('#srch-term').val(currentPosition);//document.getElementById('srch-term');
+                    
+                } else {
+                    alert('No Result');
+                }
+                console.log(event.latLng);   // Get latlong info as object.
+            });
         });
         $.getJSON('http://api.openweathermap.org/data/2.5/weather?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadCurrentWeather);
         $.getJSON('http://api.openweathermap.org/data/2.5/forecast?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadForecast);
@@ -245,3 +273,5 @@ $('#btBack').click(function () {
     'use strict';
     loadForecast(undefined, true);
 });
+
+
