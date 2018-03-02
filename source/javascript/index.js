@@ -53,6 +53,24 @@ function loadCurrentWeather(weather) {
     // $('footer').show('toggle');
     // $('#loading').loading('toggle');
 }
+function deleteRow() {
+    'use strict';
+
+    $('tr').remove('.forecast');
+}
+function addRow(array) {
+    'use strict';
+    var tr = $(document.createElement('tr'));
+    $(tr).addClass('forecast');
+    for (var i = 1; i < array.length; i++) {
+        if (array[i].slice(0, 6) === 'ficona') {
+            $(tr).append('<td><img id="' + array[i] + '"></img></td>');
+        } else {
+            $(tr).append('<td id="' + array[i] + '"></td>');
+        }
+    }
+    $('#tableForecast').append(tr);
+}
 function loadForecast(forecast, j) {
     'use strict';
     var weather;
@@ -63,15 +81,18 @@ function loadForecast(forecast, j) {
     if (j === 'success') {
         j = 0;
     }
-    weather = prevision.list[j];
-    console.log(prevision);
-    var arrayId = ['data','time', 'ficona', 'ftemp', 'fcloudiness'];
-    var arrayValue = [weather.dt, weather.dt, weather.weather[0].icon, weather.main.temp, weather.weather[0].description];
-    for (var i = 0; i < arrayId.length; i++) {
-        load(arrayId[i], arrayValue[i]);
+    deleteRow();
+    for (var k = 0; k < 8; k++) {
+        weather = prevision.list[j];
+        j++;
+        var arrayId = ['data', 'time' + j, 'ficona' + j, 'fcloudiness' + j, 'ftemp' + j];
+        var arrayValue = [weather.dt, weather.dt, weather.weather[0].icon, weather.weather[0].description, weather.main.temp];
+        addRow(arrayId);
+        for (var i = 0; i < arrayId.length; i++) {
+            load(arrayId[i], arrayValue[i], j);
+        }
     }
 }
-
 function findPosition(position) {
     'use strict';
     var mapProp;
@@ -143,25 +164,25 @@ function funzioneErrore(error) {
     $('#loading').loading('toggle');
     alert(error.message);
 }
-function load(id, value) {
+function load(id, value, j) {
     'use strict';
     var name = document.getElementById(id);
     switch (id) {
-        case 'icona': case 'ficona':
+        case 'icona': case 'ficona' + j:
             name.src = 'https://openweathermap.org/img/w/' + value + '.png';
             break;
-        case 'temp': case 'ftemp':
+        case 'temp': case 'ftemp' + j:
             var temp = value - 273.15;
             name.innerText = temp.toFixed(1);
             break;
-        case 'wind': case 'fwind':
+        case 'wind':
             if (value.deg === undefined) {
                 name.innerText = 'calmo';
             } else {
                 name.innerText = ' ' + value.speed + ' m/s,  (' + value.deg + ')';
             }
             break;
-        case 'sunrise': case 'sunset': case 'time':
+        case 'sunrise': case 'sunset': case 'time' + j:
             name.innerText = moment.unix(value).format('kk:mm');
             break;
         case 'data':
