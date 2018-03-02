@@ -160,10 +160,32 @@
                     <!--Table body-->
 
                 </table>
-                <!--Table-->
+            </article>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#forecast">
+                Prossimi giorni...
+        </button>
+            <article id="mappa" style="height:400px; width: 95%"></article>
         </section>
-        </article>
-        <article id="mappa" style="height:400px; width: 95%"></article>
+
+        <section id="forecast" class="modal row">
+
+            <article class=" card align-items-center">
+                <h3 id="data">Le previsioni di oggi</h3>
+                <div id="intro"> 
+                </div>
+                <table id="tableForecast" style="border: 1px solid;">
+                    <tr>
+                        <th><p>Ora</p></th>
+                        <th><p>Fenomeno</p></th>
+                        <th><p>Tempo</p></th>
+                        <th><p>Temperatura:</p></th>
+                    </tr>
+                </table>
+                <button class="btn btn-primary" id="btBack"><</button>
+                <button class="btn btn-primary" id="btForward">></button>
+            </article>
+        </section>
+
     </main>
     <div id="wrap">
 
