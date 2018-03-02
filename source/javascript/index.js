@@ -7,7 +7,7 @@ var latitulong = '';
 var user = '';
 var map;
 var prevision;
-var indice=0;
+var indice = 0;
 window.addEventListener('load', function () {
     'use strict';
     // $('#loading').loading({
@@ -60,13 +60,13 @@ function loadForecast(forecast, j) {
         prevision = forecast;
     }
     console.log(j);
-    if(j==='success'){
-        j=0;
+    if (j === 'success') {
+        j = 0;
     }
     weather = prevision.list[j];
     console.log(prevision);
-    var arrayId = ['ficona', 'ftemp', 'fwind', 'fcloudiness', 'fpressure', 'fhumidity'];
-    var arrayValue = [weather.weather[0].icon, weather.main.temp, weather.wind, weather.weather[0].description, weather.main.pressure, weather.main.humidity];
+    var arrayId = ['data','time', 'ficona', 'ftemp', 'fcloudiness'];
+    var arrayValue = [weather.dt, weather.dt, weather.weather[0].icon, weather.main.temp, weather.weather[0].description];
     for (var i = 0; i < arrayId.length; i++) {
         load(arrayId[i], arrayValue[i]);
     }
@@ -161,8 +161,11 @@ function load(id, value) {
                 name.innerText = ' ' + value.speed + ' m/s,  (' + value.deg + ')';
             }
             break;
-        case 'sunrise': case 'sunset':
-            name.innerText = moment.unix(value).format('kk:mm:ss ');
+        case 'sunrise': case 'sunset': case 'time':
+            name.innerText = moment.unix(value).format('kk:mm');
+            break;
+        case 'data':
+            name.innerText = moment.unix(value).format('ll ');
             break;
         default:
             name.innerText = value;
@@ -175,8 +178,8 @@ $('#btSearch').click(function () {
 
 $('#btForward').click(function () {
     'use strict';
-    if (indice >= 0 && indice < 39) {
-        indice+=8;
+    if (indice >= 0 && indice < 31) {
+        indice += 8;
     }
     loadForecast(undefined, indice);
 });
@@ -184,7 +187,7 @@ $('#btForward').click(function () {
 $('#btBack').click(function () {
     'use strict';
     if (indice > 0 && indice <= 39) {
-        indice-=8;
+        indice -= 8;
     }
     loadForecast(undefined, indice);
 });

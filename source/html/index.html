@@ -132,37 +132,20 @@
 
             <article class=" card align-items-center">
                 <h3 id="data">Le previsioni di oggi</h3>
-                <div id="intro">
-                    
+                <div id="intro"> 
                 </div>
-                <table>
+                <table style="border: 1px solid;">
                     <tr>
-                        <td><figure><img id="ficona" alt="immagine"></figure></td>
-                        <td><p>Temperatura:</p><p id="ftemp"></p><p>°C</p></td>
-                        <td></td>
-                        <td></td>
+                        <th><p>Ora</p></th>
+                        <th><p>Fenomeno</p></th>
+                        <th><p>Tempo</p></th>
+                        <th><p>Temperatura:</p></th>
                     </tr>
                     <tr>
-                        <td>Vento</td>
-                        <td id="fwind"></td>
-                    </tr>
-                    <tr>
-                        <td>Tempo</td>
-                        <td id="fcloudiness"></td>
-                    </tr>
-                    <tr>
-                        <td>Pressione</td>
-                        <td>
-                            <p id="fpressure"></p>
-                            <p>hpa</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Umidità</td>
-                        <td>
-                            <p id="fhumidity"></p>
-                            <p>%</p>
-                        </td>
+                        <td><p id="time"></p></td>
+                        <td><img id="ficona" alt="immagine"></td>
+                        <td><p id="fcloudiness"></p></td>
+                        <td><span id="ftemp"></span><span>°C</span></td>
                     </tr>
                 </table>
                 <button class="btn btn-primary" id="btBack"><</button>
