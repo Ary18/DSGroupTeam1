@@ -5,7 +5,9 @@ var sourcemaps=require('gulp-sourcemaps');
 var concat=require('gulp-concat');
 var uglify=require('gulp-uglify');
 var jshint=require ('gulp-jshint');
-var replace = require('gulp-string-replace');
+var replace =require('gulp-string-replace');
+
+const sass =require('gulp-sass');
 
 
 gulp.task('default', function(){
@@ -38,5 +40,17 @@ gulp.task('build', function () {
         .pipe(uglify()).pipe(sourcemaps.write())
         .pipe(gulp.dest('dist'));
 });
+
+    gulp.task('sass', function(){
+        return gulp.src('./bootstrap/scss/*scss')
+            .pipe(sass().on('error', sass.logError))
+            .pipe(gulp.dest('.css'));
+    });
+
+    gulp.task('sass:watch', function(){
+        gulp.watch('./bootstrap/scss/*scss', ['sass']);
+
+    });
+    
 
 
