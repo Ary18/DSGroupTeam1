@@ -107,15 +107,20 @@ function loadForecast(forecast) {
     'use strict';
     var weather;
     n=1;
+    pos=1;
     var tr;
     var oldDay = {
         date: moment.unix(forecast.list[0].dt).format('L'),
         index: 0,
     };
     $('article').remove('#contForecast');
+    $('div').remove('#headForecast');
     var article = $(document.createElement('article'));
     $(article).attr('id', 'contForecast');
-    //$(article).addClass('');
+    var head=$(document.createElement('div'));
+    $(head).attr('id', 'headForecast');
+    $(head).addClass('modal-title col order-first');
+    $('#dateHeader').append(head);
     $('#contTable').append(article);
     while (oldDay.index < 39) {
         var h3 = $(document.createElement('h5'));
@@ -161,6 +166,7 @@ function loadForecast(forecast) {
     }
     n--;
     $('#btBack').prop('disabled', true);
+    $('#btForward').prop('disabled', false);
     $('.num-1').show();
     $('#data1').show();
 }
