@@ -75,7 +75,6 @@ function addRow(array) {
         }
     }
     return tr;
-
 }
 function addRowTh(array) {
     'use strict';
@@ -114,10 +113,15 @@ function loadForecast(forecast) {
         date: moment.unix(forecast.list[0].dt).format('L'),
         index: 0,
     };
+    $('article').remove('#contForecast');
+    var article = $(document.createElement('article'));
+    $(article).attr('id','contForecast');
+    $(article).addClass('bg-dark modal-body col-md-10');
+    $('#modalForecast').append(article);
     while (oldDay.index < 39) {
         var table = $(document.createElement('table'));
         $(table).addClass('num-' + n + ' table table-dark');
-        $('#contForecast').append(table);
+        $(article).append(table);
         $(table).hide();
         var arrayTh = ['ora' + n, 'fenomeno' + n, 'tempo' + n, 'temperatura' + n];
         var arrayValueTh = ['Ora', 'Fenomeno', 'Tempo', 'Temperatura'];
