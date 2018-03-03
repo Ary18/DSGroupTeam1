@@ -5,27 +5,14 @@ var currentPosition = '';
 var latitulong = '';
 var user = '';
 var map;
+var n = 1;
 var map2;
 var oldDate = '';
 var pos = 1;
 var mark;
 window.addEventListener('load', function () {
     'use strict';
-    // $('#loading').loading({
-    //     theme: 'dark',
-    //     message: 'one moment...',
-    //     hiddenClass: 'loading-hidden',
-    //     onStart: function (loading) {
-    //         loading.overlay.slideDown(400);
-    //     },
-    //     onStop: function (loading) {
-    //         loading.overlay.slideUp(400);
-    //     }
-    // }, 'toggle');
-    // $('#container').hide('toggle');
-    // $('footer').hide('toggle');
     loadPosition();
-
 });
 function loadCurrentWeather(weather) {
     'use strict';
@@ -87,20 +74,22 @@ function addRowTh(array) {
 function backForward(direction) {
     'use strict';
     if (direction) {
-        if (pos < 6) {
-            //$('.num-' + pos).hide();
+        if (pos < n) {
+            $('#btBack').prop('disabled', false);
             $('.num-' + pos).fadeOut(300, function () {
                 $('.num-' + pos).fadeIn();
             });
             $('#data' + pos).hide();
             pos++;
-            // $('.num-' + pos).show();
-
             $('#data' + pos).show();
+            if(pos===n){
+                $('#btForward').prop('disabled', true);
+            }
         }
     }
     else {
         if (pos > 1) {
+            $('#btForward').prop('disabled', false);
             $('.num-' + pos).fadeOut(300, function () {
                 $('.num-' + pos).fadeIn();
             });
@@ -108,15 +97,17 @@ function backForward(direction) {
             pos--;
             // $('.num-' + pos).show();
             $('#data' + pos).show();
+            if(pos===1){
+                $('#btBack').prop('disabled', true);
+            }
         }
     }
-    console.log(pos);
 }
 function loadForecast(forecast) {
     'use strict';
     var weather;
+    n=1;
     var tr;
-    var n = 1;
     var oldDay = {
         date: moment.unix(forecast.list[0].dt).format('L'),
         index: 0,
@@ -168,6 +159,8 @@ function loadForecast(forecast) {
         }
         oldDay.date = moment.unix(weather.dt).format('L');
     }
+    n--;
+    $('#btBack').prop('disabled', true);
     $('.num-1').show();
     $('#data1').show();
 }
@@ -199,7 +192,8 @@ function findPosition(position) {
             $.getJSON('https://api.openweathermap.org/data/2.5/weather?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadCurrentWeather);
             $.getJSON('https://api.openweathermap.org/data/2.5/forecast?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadForecast);
         } else {
-            alert('No Result');
+            alert('Nessun Risultato');
+            $('#myModal').modal('show');
         }
     });
 }
@@ -215,6 +209,7 @@ function noGeolocation() {
     'use strict';
     loadMap();
     $('.loader').fadeOut();
+    enableMarker();
     $("#myModal").modal();
 }
 function loadMap(position) {
@@ -256,7 +251,6 @@ function loadMap(position) {
         position: mapProp.center,
         map: map2
     });
-
     $.getJSON('https://api.openweathermap.org/data/2.5/weather?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadCurrentWeather);
     $.getJSON('https://api.openweathermap.org/data/2.5/forecast?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadForecast);
 
@@ -322,7 +316,7 @@ $('#forecast').on('keyup', function (e) {
     }
 });
 
-$('#findPosition').click(function () {
+function enableMarker(){
     'use strict';
     google.maps.event.addListener(map2, 'click', function (event) {
         var geocoder = new google.maps.Geocoder();
@@ -338,7 +332,10 @@ $('#findPosition').click(function () {
             } else {
                 alert('No Result');
             }
-            console.log(event.latLng);   // Get latlong info as object.
         });
     });
+}
+$('#findPosition').click(function () {
+    'use strict';
+    enableMarker();
 });
