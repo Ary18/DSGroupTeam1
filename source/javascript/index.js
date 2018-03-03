@@ -302,26 +302,14 @@ $("#modalSearch").on('keyup', function (e) {
         findPosition($('#srch-term').val());
     }
 });
-
 $('#btForward').click(function () {
     'use strict';
     backForward(true);
 });
-
 $('#btBack').click(function () {
     'use strict';
     backForward(false);
 });
-
-$('#forecast').on('keyup', function (e) {
-    'use strict';
-    if (e.keyCode === 37) {
-        backForward(false);
-    } else if (e.keyCode === 39) {
-        backForward(true);
-    }
-});
-
 function enableMarker(){
     'use strict';
     google.maps.event.addListener(map2, 'click', function (event) {
