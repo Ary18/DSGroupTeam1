@@ -2,13 +2,13 @@
 /*global moment */
 /*global $ */
 var currentPosition = '';
-var oldAccess = '';
 var latitulong = '';
 var user = '';
 var map;
 var map2;
 var prevision;
 var oldDay;
+var oldDate = '';
 window.addEventListener('load', function () {
     'use strict';
     // $('#loading').loading({
@@ -24,32 +24,36 @@ window.addEventListener('load', function () {
     // }, 'toggle');
     // $('#container').hide('toggle');
     // $('footer').hide('toggle');
-
     loadPosition();
 
 });
-
 function loadCurrentWeather(weather) {
     'use strict';
-
-    var oldDate = '';
-    if (localStorage && localStorage.ultimoaccesso) {
-        oldDate = localStorage.ultimoaccesso;
-    } else {
-        oldDate = "MAI";
+    try {
+        if (localStorage && localStorage.ultimoaccesso) {
+            oldDate = localStorage.ultimoaccesso;
+        } else {
+            oldDate = "MAI";
+        }
+        localStorage.setItem('ultimoaccesso', moment().format('LL') + ' ' + moment().format('LTS'));
+        if (localStorage && localStorage.username) {
+            user = localStorage.username;
+        } else {
+            user = 'Mario';
+            localStorage.username = user;
+        }
     }
-    localStorage.setItem('ultimoaccesso', moment().format('LL') + ' ' + moment().format('LTS'));
-    if (localStorage && localStorage.username) {
-        user = localStorage.username;
-    } else {
+    catch(err){
+        console.log(err);
         user = 'Mario';
-        localStorage.username = user;
+        oldDate = "Non Disponibile";
     }
-    oldAccess = user + " ultimo accesso " + oldDate;
-    var arrayId = ['nome', 'accesso', 'icona', 'temp', 'wind', 'cloudiness', 'pressure', 'humidity', 'sunrise', 'sunset'];
-    var arrayValue = [user, oldDate, weather.weather[0].icon, weather.main.temp, weather.wind, weather.weather[0].description, weather.main.pressure, weather.main.humidity, weather.sys.sunrise, weather.sys.sunset];
-    for (var i = 0; i < arrayId.length; i++) {
-        load(arrayId[i], arrayValue[i]);
+    finally {
+        var arrayId = ['nome', 'accesso', 'icona', 'temp', 'wind', 'cloudiness', 'pressure', 'humidity', 'sunrise', 'sunset'];
+        var arrayValue = [user, oldDate, weather.weather[0].icon, weather.main.temp, weather.wind, weather.weather[0].description, weather.main.pressure, weather.main.humidity, weather.sys.sunrise, weather.sys.sunset];
+        for (var i = 0; i < arrayId.length; i++) {
+            load(arrayId[i], arrayValue[i]);
+        }
     }
     // $('#container').show('toggle');
     // $('footer').show('toggle');
@@ -154,7 +158,7 @@ function findPosition(position) {
                     if (results[0]) {
                         currentPosition = results[0].formatted_address;
                         $('#srch-term').val(currentPosition);//document.getElementById('srch-term');
-                        
+
                     } else {
                         alert('No Result');
                     }
@@ -176,7 +180,7 @@ function loadPosition() { //geolocalizza e restituisce l'indirizzo utilizzando i
         alert('non disponibile');
     }
 }
-function noGeolocation(){
+function noGeolocation() {
     $("#myModal").modal();
 }
 function loadMap(position) {
@@ -218,7 +222,7 @@ function loadMap(position) {
                 if (results[0]) {
                     currentPosition = results[0].formatted_address;
                     $('#srch-term').val(currentPosition);//document.getElementById('srch-term');
-                    
+
                 } else {
                     alert('No Result');
                 }
