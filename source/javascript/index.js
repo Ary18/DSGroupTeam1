@@ -90,20 +90,23 @@ function backForward(direction) {
     if (direction) {
         if (pos < 6) {
             $('.num-' + pos).hide();
+            $('#data'+pos).hide();
             pos++;
             $('.num-' + pos).show();
+            $('#data'+pos).show();
         }
     }
     else {
         if (pos > 1) {
             $('.num-' + pos).hide();
+            $('#data'+pos).hide();
             pos--;
             $('.num-' + pos).show();
+            $('#data'+pos).show();
         }
     }
     console.log(pos);
 }
-
 function loadForecast(forecast) {
     'use strict';
     var weather;
@@ -116,9 +119,14 @@ function loadForecast(forecast) {
     $('article').remove('#contForecast');
     var article = $(document.createElement('article'));
     $(article).attr('id','contForecast');
-    $(article).addClass('bg-dark modal-body col-md-10');
+    $(article).addClass('modal-body col-md-10');
     $('#modalForecast').append(article);
     while (oldDay.index < 39) {
+        var h3= $(document.createElement('h3'));
+        $(h3).attr('id', 'data'+n);
+        $(article).append(h3);
+        $(h3).hide();
+        load('data'+n, forecast.list[oldDay.index].dt, n);
         var table = $(document.createElement('table'));
         $(table).addClass('num-' + n + ' table table-dark');
         $(article).append(table);
@@ -152,6 +160,7 @@ function loadForecast(forecast) {
         oldDay.date = moment.unix(weather.dt).format('L');
     }
     $('.num-1').show();
+    $('#data1').show();
     n--;
 }
 function findPosition(position) {
@@ -281,8 +290,8 @@ function load(id, value, j) {
         case 'sunrise': case 'sunset': case 'time' + j:
             name.innerText = moment.unix(value).format('kk:mm');
             break;
-        case 'data':
-            name.innerText = moment.unix(value).format('ll ');
+        case 'data'+j:
+            name.innerText = moment.unix(value).format('LL');
             break;
         default:
             name.innerText = value;
