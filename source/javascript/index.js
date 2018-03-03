@@ -68,10 +68,15 @@ function addRow(array) {
     var tr = $(document.createElement('tr'));
     $(tr).addClass('forecast');
     for (var i = 1; i < array.length; i++) {
-        if (array[i].slice(0, 6) === 'ficona') {
-            $(tr).append('<td><img id="' + array[i] + '"></img></td>');
-        } else {
-            $(tr).append('<td id="' + array[i] + '"></td>');
+        if (i === 1) {
+            $(tr).append('<th scope="row" id="' + array[i] + '" class="text-center"></th>');
+        }
+        else {
+            if (array[i].slice(0, 6) === 'ficona') {
+                $(tr).append('<td class="text-center"><img id="' + array[i] + '"></img></td>');
+            } else {
+                $(tr).append('<td id="' + array[i] + '" class="text-center"></td>');
+            }
         }
     }
     return tr;
@@ -79,9 +84,9 @@ function addRow(array) {
 function addRowTh(array) {
     'use strict';
     var tr = $(document.createElement('tr'));
-    $(tr).addClass('forecast');
+    $(tr).addClass('forecast bg-inverse text-white');
     for (var i = 0; i < array.length; i++) {
-        $(tr).append('<th id="' + array[i] + '"></th>');
+        $(tr).append('<th id="' + array[i] + '" class="text-center"></th>');
     }
     return tr;
 }
@@ -90,19 +95,19 @@ function backForward(direction) {
     if (direction) {
         if (pos < 6) {
             $('.num-' + pos).hide();
-            $('#data'+pos).hide();
+            $('#data' + pos).hide();
             pos++;
             $('.num-' + pos).show();
-            $('#data'+pos).show();
+            $('#data' + pos).show();
         }
     }
     else {
         if (pos > 1) {
             $('.num-' + pos).hide();
-            $('#data'+pos).hide();
+            $('#data' + pos).hide();
             pos--;
             $('.num-' + pos).show();
-            $('#data'+pos).show();
+            $('#data' + pos).show();
         }
     }
     console.log(pos);
@@ -118,22 +123,24 @@ function loadForecast(forecast) {
     };
     $('article').remove('#contForecast');
     var article = $(document.createElement('article'));
-    $(article).attr('id','contForecast');
-    $(article).addClass('modal-body col-md-10');
-    $('#modalForecast').append(article);
+    $(article).attr('id', 'contForecast');
+    //$(article).addClass('');
+    $('#contTable').append(article);
     while (oldDay.index < 39) {
-        var h3= $(document.createElement('h3'));
-        $(h3).attr('id', 'data'+n);
-        $(article).append(h3);
+        var h3 = $(document.createElement('h5'));
+        $(h3).attr('id', 'data' + n);
+        $('#headForecast').append(h3);
         $(h3).hide();
-        load('data'+n, forecast.list[oldDay.index].dt, n);
+        load('data' + n, forecast.list[oldDay.index].dt, n);
         var table = $(document.createElement('table'));
-        $(table).addClass('num-' + n + ' table table-dark');
+        $(table).addClass('num-' + n + ' table table-hover');
         $(article).append(table);
         $(table).hide();
         var arrayTh = ['ora' + n, 'fenomeno' + n, 'tempo' + n, 'temperatura' + n];
         var arrayValueTh = ['Ora', 'Fenomeno', 'Tempo', 'Temperatura'];
-        $(table).append(addRowTh(arrayTh));
+        var thead = $(document.createElement('thead'));
+        $(table).append(thead);
+        $(thead).append(addRowTh(arrayTh));
         for (var i = 0; i < arrayTh.length; i++) {
             load(arrayTh[i], arrayValueTh[i], oldDay.index);
         }
@@ -147,7 +154,9 @@ function loadForecast(forecast) {
                 var arrayId = ['data', 'time' + oldDay.index, 'ficona' + oldDay.index, 'fcloudiness' + oldDay.index, 'ftemp' + oldDay.index];
                 var arrayValue = [weather.dt, weather.dt, weather.weather[0].icon, weather.weather[0].description, weather.main.temp];
                 tr = addRow(arrayId);
-                $(table).append(tr);
+                var tbody = $(document.createElement('tbody'));
+                $(table).append(tbody);
+                $(tbody).append(tr);
                 for (i = 1; i < arrayId.length; i++) {
                     load(arrayId[i], arrayValue[i], oldDay.index);
                 }
@@ -278,7 +287,7 @@ function load(id, value, j) {
             break;
         case 'temp': case 'ftemp' + j:
             var temp = value - 273.15;
-            name.innerText = temp.toFixed(1);
+            name.innerText = temp.toFixed(1) + '°C';
             break;
         case 'wind':
             if (value.deg === undefined) {
@@ -290,7 +299,7 @@ function load(id, value, j) {
         case 'sunrise': case 'sunset': case 'time' + j:
             name.innerText = moment.unix(value).format('kk:mm');
             break;
-        case 'data'+j:
+        case 'data' + j:
             name.innerText = moment.unix(value).format('LL');
             break;
         default:

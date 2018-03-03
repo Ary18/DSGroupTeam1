@@ -2,7 +2,7 @@
     box-shadow: 0px 0px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 4px 0px 10px 0px rgba(0, 0, 0, 0.12);
 }
 
-.bg-inverse{
+.bg-inverseNav{
     background-color:#474F4E !important;
     position:fixed;
     width:100%;;
@@ -11,9 +11,9 @@
     left:0px;
     padding:2.2%;
     box-shadow:  0px 0px 10px 10px rgba(0, 0, 0, 0.2), 0px 0px 20px 10px rgba(0, 0, 0, 0.14), 4px 0px 10px 0px rgba(0, 0, 0, 0.12);
-}
+} 
 body{
-    margin-top:7%;
+    margin-top:8rem;
 }
 .modal-content{
     z-index:999;
@@ -88,10 +88,22 @@ border-top:#303635;
     width: 60%;
     box-shadow: 0px 0px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 4px 0px 10px 0px rgba(0, 0, 0, 0.12);
 }
+
 section p{
     margin-top: 12px;
 }
 .btn{
     background-color: #303635;
     color: white;
+}
+.backLogo{
+    display:flex;
+    align-items: center;
+    background-color: black;
+    border: 1px;
+    border-radius: 100%;
+    padding: 10px;
+    box-shadow: 0px 0px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 4px 0px 10px 0px rgba(0, 0, 0, 0.12);
+    width:3rem;
+    height: 3rem;
 }
