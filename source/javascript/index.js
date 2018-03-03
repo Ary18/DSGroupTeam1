@@ -6,9 +6,8 @@ var latitulong = '';
 var user = '';
 var map;
 var map2;
-var prevision;
-var oldDay;
 var oldDate = '';
+var pos = 1;
 window.addEventListener('load', function () {
     'use strict';
     // $('#loading').loading({
@@ -43,7 +42,7 @@ function loadCurrentWeather(weather) {
             localStorage.username = user;
         }
     }
-    catch(err){
+    catch (err) {
         console.log(err);
         user = 'Mario';
         oldDate = "Non Disponibile";
@@ -59,11 +58,11 @@ function loadCurrentWeather(weather) {
     // $('footer').show('toggle');
     // $('#loading').loading('toggle');
 }
-function deleteRow() {
-    'use strict';
+// function deleteRow() {
+//     'use strict';
 
-    $('tr').remove('.forecast');
-}
+//     $('tr').remove('.forecast');
+// }
 function addRow(array) {
     'use strict';
     var tr = $(document.createElement('tr'));
@@ -75,57 +74,81 @@ function addRow(array) {
             $(tr).append('<td id="' + array[i] + '"></td>');
         }
     }
-    $('#tableForecast').append(tr);
+    return tr;
+
+}
+function addRowTh(array) {
+    'use strict';
+    var tr = $(document.createElement('tr'));
+    $(tr).addClass('forecast');
+    for (var i = 0; i < array.length; i++) {
+        $(tr).append('<th id="' + array[i] + '"></th>');
+    }
+    return tr;
+}
+function backForward(direction) {
+    'use strict';
+    if (direction) {
+        if (pos < 6) {
+            $('.num-' + pos).hide();
+            pos++;
+            $('.num-' + pos).show();
+        }
+    }
+    else {
+        if (pos > 1) {
+            $('.num-' + pos).hide();
+            pos--;
+            $('.num-' + pos).show();
+        }
+    }
+    console.log(pos);
 }
 
-function loadForecast(forecast, back) {
+function loadForecast(forecast) {
     'use strict';
     var weather;
-
-    if (forecast) {
-        prevision = forecast;
-    }
-    if (!oldDay) {
-        oldDay = {
-            date: moment.unix(prevision.list[0].dt).format('L'),
-            index: 0,
-        };
-    }
-    if (back) {
-        for (var j = 0; j < 16; j++) {
-            if (oldDay.index !== 0) {
-                oldDay.index--;
-                oldDay.date = moment.unix(prevision.list[oldDay.index].dt).format('L');
-            } else {
-                j = 16;
+    var tr;
+    var n = 1;
+    var oldDay = {
+        date: moment.unix(forecast.list[0].dt).format('L'),
+        index: 0,
+    };
+    while (oldDay.index < 39) {
+        var table = $(document.createElement('table'));
+        $(table).addClass('num-' + n + ' table table-dark');
+        $('#contForecast').append(table);
+        $(table).hide();
+        var arrayTh = ['ora' + n, 'fenomeno' + n, 'tempo' + n, 'temperatura' + n];
+        var arrayValueTh = ['Ora', 'Fenomeno', 'Tempo', 'Temperatura'];
+        $(table).append(addRowTh(arrayTh));
+        for (var i = 0; i < arrayTh.length; i++) {
+            load(arrayTh[i], arrayValueTh[i], oldDay.index);
+        }
+        n++;
+        weather = forecast.list[oldDay.index];
+        while (oldDay.date === moment.unix(weather.dt).format('L')) {
+            if (oldDay.index <= 38) {
+                oldDay.index++;
+                oldDay.date = moment.unix(weather.dt).format('L');
+                weather = forecast.list[oldDay.index];
+                var arrayId = ['data', 'time' + oldDay.index, 'ficona' + oldDay.index, 'fcloudiness' + oldDay.index, 'ftemp' + oldDay.index];
+                var arrayValue = [weather.dt, weather.dt, weather.weather[0].icon, weather.weather[0].description, weather.main.temp];
+                tr = addRow(arrayId);
+                $(table).append(tr);
+                for (i = 1; i < arrayId.length; i++) {
+                    load(arrayId[i], arrayValue[i], oldDay.index);
+                }
+            }
+            else {
+                weather = forecast.list[oldDay.index];
+                oldDay.date = '';
             }
         }
+        oldDay.date = moment.unix(weather.dt).format('L');
     }
-    console.log(moment.unix(prevision.list[oldDay.index].dt).format('LLL'));
-    console.log(oldDay.date);
-    deleteRow();
-    weather = prevision.list[oldDay.index];
-    var arrayId = ['data', 'time' + oldDay.index, 'ficona' + oldDay.index, 'fcloudiness' + oldDay.index, 'ftemp' + oldDay.index];
-    var arrayValue = [weather.dt, weather.dt, weather.weather[0].icon, weather.weather[0].description, weather.main.temp];
-    load(arrayId[0], arrayValue[0], oldDay.index);
-    while (oldDay.date === moment.unix(weather.dt).format('L')) {
-        if (oldDay.index < 39) {
-            oldDay.index++;
-            oldDay.date = moment.unix(weather.dt).format('L');
-            weather = prevision.list[oldDay.index];
-            arrayId = ['data', 'time' + oldDay.index, 'ficona' + oldDay.index, 'fcloudiness' + oldDay.index, 'ftemp' + oldDay.index];
-            arrayValue = [weather.dt, weather.dt, weather.weather[0].icon, weather.weather[0].description, weather.main.temp];
-            addRow(arrayId);
-            for (var i = 1; i < arrayId.length; i++) {
-                load(arrayId[i], arrayValue[i], oldDay.index);
-            }
-        } else {
-            weather = prevision.list[40];
-            oldDay.date = moment.unix(weather.dt).format('L');
-        }
-    }
-    oldDay.date = moment.unix(weather.dt).format('L');
-    console.log(oldDay.index);
+    $('.num-1').show();
+    n--;
 }
 function findPosition(position) {
     'use strict';
@@ -153,7 +176,6 @@ function findPosition(position) {
             var luogo = document.getElementById('luogo');
             luogo.innerText = results[0].formatted_address;
             google.maps.event.addListener(map2, 'click', function (event) {
-                'use strict';
                 var geocoder = new google.maps.Geocoder();
                 geocoder.geocode({ 'location': event.latLng }, function (results) {
                     if (results[0]) {
@@ -182,6 +204,7 @@ function loadPosition() { //geolocalizza e restituisce l'indirizzo utilizzando i
     }
 }
 function noGeolocation() {
+    'use strict';
     $("#myModal").modal();
 }
 function loadMap(position) {
@@ -217,7 +240,6 @@ function loadMap(position) {
             map: map2
         });
         google.maps.event.addListener(map2, 'click', function (event) {
-            'use strict';
             var geocoder = new google.maps.Geocoder();
             geocoder.geocode({ 'location': event.latLng }, function (results) {
                 if (results[0]) {
@@ -233,10 +255,6 @@ function loadMap(position) {
         $.getJSON('https://api.openweathermap.org/data/2.5/weather?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadCurrentWeather);
         $.getJSON('https://api.openweathermap.org/data/2.5/forecast?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadForecast);
     }
-}
-function funzioneErrore(error) {
-    'use strict';
-    alert(error.message);
 }
 function load(id, value, j) {
     'use strict';
@@ -271,19 +289,18 @@ $('#btSearch').click(function () {
     findPosition($('#srch-term').val());
 });
 $("#modalSearch").on('keyup', function (e) {
-    if (e.keyCode == 13) {
+    'use strict';
+    if (e.keyCode === 13) {
         findPosition($('#srch-term').val());
     }
 });
 
 $('#btForward').click(function () {
     'use strict';
-    loadForecast(undefined,false);
+    backForward(true);
 });
 
 $('#btBack').click(function () {
     'use strict';
-    loadForecast(undefined,true);
+    backForward(false);
 });
-
-
