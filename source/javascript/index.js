@@ -94,19 +94,25 @@ function backForward(direction) {
     'use strict';
     if (direction) {
         if (pos < 6) {
-            $('.num-' + pos).hide();
+            //$('.num-' + pos).hide();
+            $('.num-' + pos).fadeOut(300, function(){
+                $('.num-' + pos).fadeIn();
+            });
             $('#data' + pos).hide();
             pos++;
-            $('.num-' + pos).show();
+           // $('.num-' + pos).show();
+            
             $('#data' + pos).show();
         }
     }
     else {
         if (pos > 1) {
-            $('.num-' + pos).hide();
+            $('.num-' + pos).fadeOut(300, function(){
+                $('.num-' + pos).fadeIn();
+            });
             $('#data' + pos).hide();
             pos--;
-            $('.num-' + pos).show();
+           // $('.num-' + pos).show();
             $('#data' + pos).show();
         }
     }
@@ -325,4 +331,13 @@ $('#btForward').click(function () {
 $('#btBack').click(function () {
     'use strict';
     backForward(false);
+});
+
+$('#forecast').on('keyup', function (e) {
+    'use strict';
+    if (e.keyCode === 37) {
+        backForward(false);
+    }else if(e.keyCode === 39){
+        backForward(true);
+    }
 });
