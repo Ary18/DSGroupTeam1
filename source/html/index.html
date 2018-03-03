@@ -41,7 +41,7 @@
         </div>
         <button type="button" class="btn btn-info btn-md my-2 " data-toggle="modal" data-target="#myModal">Cerca la tua posizione!</button>
     </nav>
-    
+
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -162,39 +162,39 @@
             <article id="mappa" style="height:400px; width: 95%"></article>
         </section>
 
-        <section id="forecast" class="modal row">
-
-            <article class=" card align-items-center">
-                <h3 id="data">Le previsioni di oggi</h3>
-                <div id="intro">
+        <section id="forecast" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="row">
+                        <button class="btn btn-primary col-md-1" id="btBack">
+                            <</button>
+                                <article class=" modal-body col-md-10">
+                                    <h3 id="data">Le previsioni di oggi</h3>
+                                    <table id="tableForecast" style="border: 1px solid;">
+                                        <tr>
+                                            <th>
+                                                <p>Ora</p>
+                                            </th>
+                                            <th>
+                                                <p>Fenomeno</p>
+                                            </th>
+                                            <th>
+                                                <p>Tempo</p>
+                                            </th>
+                                            <th>
+                                                <p>Temperatura:</p>
+                                                <span></span>
+                                            </th>
+                                        </tr>
+                                    </table>
+                                </article>
+                                <button class="btn btn-primary col-md-1" id="btForward">></button>
+                    </div>
                 </div>
-                <table id="tableForecast" style="border: 1px solid;">
-                    <button class="btn btn-primary pull-left" id="btBack">
-                        <</button>
-                            <tr>
-                                <th>
-                                    <p>Ora</p>
-                                </th>
-                                <th>
-                                    <p>Fenomeno</p>
-                                </th>
-                                <th>
-                                    <p>Tempo</p>
-                                </th>
-                                <th>
-                                    <p>Temperatura:</p>
-                                    <span></span>
-                                </th>
-                            </tr>
-                </table>
-                <button class="btn btn-primary pull-right" id="btForward">></button>
-            </article>
+            </div>
         </section>
-
     </main>
-    <div id="wrap">
 
-    </div>
     <!--Footer-->
     <footer class="page-footer font-small indigo pt-4">
 

@@ -95,9 +95,3 @@ section p{
     background-color: #303635;
     color: white;
 }
-#btForward{
-    float: right;
-}
-#btBack{
-    float: left;
-}

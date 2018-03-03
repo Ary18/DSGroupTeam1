@@ -77,6 +77,7 @@ function addRow(array) {
     }
     $('#tableForecast').append(tr);
 }
+
 function loadForecast(forecast, back) {
     'use strict';
     var weather;
@@ -277,12 +278,12 @@ $("#modalSearch").on('keyup', function (e) {
 
 $('#btForward').click(function () {
     'use strict';
-    loadForecast(undefined, false);
+    loadForecast(undefined,false);
 });
 
 $('#btBack').click(function () {
     'use strict';
-    loadForecast(undefined, true);
+    loadForecast(undefined,true);
 });
 
 
