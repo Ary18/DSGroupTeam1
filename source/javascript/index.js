@@ -8,6 +8,7 @@ var map;
 var map2;
 var oldDate = '';
 var pos = 1;
+var mark;
 window.addEventListener('load', function () {
     'use strict';
     // $('#loading').loading({
@@ -54,15 +55,8 @@ function loadCurrentWeather(weather) {
             load(arrayId[i], arrayValue[i]);
         }
     }
-    // $('#container').show('toggle');
-    // $('footer').show('toggle');
-    // $('#loading').loading('toggle');
+    $('.loader').fadeOut();
 }
-// function deleteRow() {
-//     'use strict';
-
-//     $('tr').remove('.forecast');
-// }
 function addRow(array) {
     'use strict';
     var tr = $(document.createElement('tr'));
@@ -95,24 +89,24 @@ function backForward(direction) {
     if (direction) {
         if (pos < 6) {
             //$('.num-' + pos).hide();
-            $('.num-' + pos).fadeOut(300, function(){
+            $('.num-' + pos).fadeOut(300, function () {
                 $('.num-' + pos).fadeIn();
             });
             $('#data' + pos).hide();
             pos++;
-           // $('.num-' + pos).show();
-            
+            // $('.num-' + pos).show();
+
             $('#data' + pos).show();
         }
     }
     else {
         if (pos > 1) {
-            $('.num-' + pos).fadeOut(300, function(){
+            $('.num-' + pos).fadeOut(300, function () {
                 $('.num-' + pos).fadeIn();
             });
             $('#data' + pos).hide();
             pos--;
-           // $('.num-' + pos).show();
+            // $('.num-' + pos).show();
             $('#data' + pos).show();
         }
     }
@@ -176,7 +170,6 @@ function loadForecast(forecast) {
     }
     $('.num-1').show();
     $('#data1').show();
-    n--;
 }
 function findPosition(position) {
     'use strict';
@@ -186,15 +179,15 @@ function findPosition(position) {
         if (status === 'OK') {
             mapProp = {
                 center: results[0].geometry.location,
-                zoom: 16,
+                zoom: 10,
             };
             map = new google.maps.Map(document.getElementById("mappa"), mapProp);
-            new google.maps.Marker({
+            mark = new google.maps.Marker({
                 position: mapProp.center,
                 map: map
             });
             map2 = new google.maps.Map(document.getElementById("mappa2"), mapProp);
-            new google.maps.Marker({
+            mark = new google.maps.Marker({
                 position: mapProp.center,
                 map: map2
             });
@@ -203,19 +196,6 @@ function findPosition(position) {
             name.innerText = latitulong.lat().toFixed(2) + ', ' + latitulong.lng().toFixed(2);
             var luogo = document.getElementById('luogo');
             luogo.innerText = results[0].formatted_address;
-            google.maps.event.addListener(map2, 'click', function (event) {
-                var geocoder = new google.maps.Geocoder();
-                geocoder.geocode({ 'location': event.latLng }, function (results) {
-                    if (results[0]) {
-                        currentPosition = results[0].formatted_address;
-                        $('#srch-term').val(currentPosition);//document.getElementById('srch-term');
-
-                    } else {
-                        alert('No Result');
-                    }
-                    console.log(event.latLng);   // Get latlong info as object.
-                });
-            });
             $.getJSON('https://api.openweathermap.org/data/2.5/weather?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadCurrentWeather);
             $.getJSON('https://api.openweathermap.org/data/2.5/forecast?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadForecast);
         } else {
@@ -233,56 +213,54 @@ function loadPosition() { //geolocalizza e restituisce l'indirizzo utilizzando i
 }
 function noGeolocation() {
     'use strict';
+    loadMap();
+    $('.loader').fadeOut();
     $("#myModal").modal();
 }
 function loadMap(position) {
     'use strict';
+    var mapProp;
     if (position && position.coords) {
         var latitudine = position.coords.latitude;
         var longitudine = position.coords.longitude;
-        var mapProp = {
+        mapProp = {
             center: new google.maps.LatLng(latitudine, longitudine),
-            zoom: 16,
+            zoom: 10,
         };
-        latitulong = mapProp.center;
-        var name = document.getElementById('geoCoords');
-        name.innerText = latitulong.lat().toFixed(2) + ', ' + latitulong.lng().toFixed(2);
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ 'location': mapProp.center }, function (results) {
-            if (results[0]) {
-                currentPosition = results[0].formatted_address;
-                var luogo = document.getElementById('luogo');
-                luogo.innerText = currentPosition;
-            } else {
-                alert('No Result');
-            }
-        });
-        map = new google.maps.Map(document.getElementById("mappa"), mapProp);
-        new google.maps.Marker({
-            position: mapProp.center,
-            map: map
-        });
-        map2 = new google.maps.Map(document.getElementById("mappa2"), mapProp);
-        new google.maps.Marker({
-            position: mapProp.center,
-            map: map2
-        });
-        google.maps.event.addListener(map2, 'click', function (event) {
-            var geocoder = new google.maps.Geocoder();
-            geocoder.geocode({ 'location': event.latLng }, function (results) {
-                if (results[0]) {
-                    currentPosition = results[0].formatted_address;
-                    $('#srch-term').val(currentPosition);//document.getElementById('srch-term');
-
-                } else {
-                    alert('No Result');
-                }
-                console.log(event.latLng);   // Get latlong info as object.
-            });
-        });
-        $.getJSON('https://api.openweathermap.org/data/2.5/weather?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadCurrentWeather);
-        $.getJSON('https://api.openweathermap.org/data/2.5/forecast?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadForecast);
+    } else {
+        mapProp = {
+            center: new google.maps.LatLng(42.94, 12.55),
+            zoom: 5,
+        };
     }
+    latitulong = mapProp.center;
+    var name = document.getElementById('geoCoords');
+    name.innerText = latitulong.lat().toFixed(2) + ', ' + latitulong.lng().toFixed(2);
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ 'location': mapProp.center }, function (results) {
+        if (results[0]) {
+            currentPosition = results[0].formatted_address;
+            var luogo = document.getElementById('luogo');
+            luogo.innerText = currentPosition;
+        } else {
+            alert('No Result');
+        }
+    });
+    map = new google.maps.Map(document.getElementById("mappa"), mapProp);
+    mark = new google.maps.Marker({
+        position: mapProp.center,
+        map: map
+    });
+    map2 = new google.maps.Map(document.getElementById("mappa2"), mapProp);
+    mark = new google.maps.Marker({
+        position: mapProp.center,
+        map: map2
+    });
+
+    $.getJSON('https://api.openweathermap.org/data/2.5/weather?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadCurrentWeather);
+    $.getJSON('https://api.openweathermap.org/data/2.5/forecast?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadForecast);
+
+
 }
 function load(id, value, j) {
     'use strict';
@@ -314,11 +292,13 @@ function load(id, value, j) {
 }
 $('#btSearch').click(function () {
     'use strict';
+    $('#myModal').modal('hide');
     findPosition($('#srch-term').val());
 });
 $("#modalSearch").on('keyup', function (e) {
     'use strict';
     if (e.keyCode === 13) {
+        $('#myModal').modal('hide');
         findPosition($('#srch-term').val());
     }
 });
@@ -337,7 +317,28 @@ $('#forecast').on('keyup', function (e) {
     'use strict';
     if (e.keyCode === 37) {
         backForward(false);
-    }else if(e.keyCode === 39){
+    } else if (e.keyCode === 39) {
         backForward(true);
     }
+});
+
+$('#findPosition').click(function () {
+    'use strict';
+    google.maps.event.addListener(map2, 'click', function (event) {
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ 'location': event.latLng }, function (results) {
+            if (results[0]) {
+                currentPosition = results[0].formatted_address;
+                $('#srch-term').val(currentPosition);//document.getElementById('srch-term');
+                mark.setMap(null);
+                mark = new google.maps.Marker({
+                    position: event.latLng,
+                    map: map2
+                });
+            } else {
+                alert('No Result');
+            }
+            console.log(event.latLng);   // Get latlong info as object.
+        });
+    });
 });

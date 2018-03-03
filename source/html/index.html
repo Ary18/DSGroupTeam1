@@ -12,6 +12,7 @@
 </head>
 
 <body id="loading" class="container-fluid">
+    <div class="loader">LOADING...</div>
     <nav class="navbar navbar-toggleable-sm  navbar-inverse bg-inverseNav ">
         <button class="navbar-toggler navbar-toggler-right " type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
             aria-expanded="false" aria-label="">
@@ -37,7 +38,7 @@
                 </li>
             </ul>
         </div>
-        <button type="button" class="btn btn-info btn-md my-2 " data-toggle="modal" data-target="#myModal">Cerca la tua posizione!</button>
+        <button id="findPosition" type="button" class="btn btn-info btn-md my-2 " data-toggle="modal" data-target="#myModal">Cerca la tua posizione!</button>
     </nav>
 
     <div id="myModal" class="modal fade" role="dialog">
@@ -53,7 +54,7 @@
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Cerca Località" name="srch-term" id="srch-term">
                         <div class="input-group-btn">
-                            <button id="btSearch" class="btn btn-primary" type="submit">GO</button>
+                            <button id="btSearch" class="btn btn-primary" type="submit" >GO</button>
                         </div>
                     </div>
 
@@ -85,9 +86,8 @@
     <main id="container" class="card align-items-center shadow-nohover">
 
         <section id="posizione" class="rounded">
-            <p>Attualmente ti trovi a:
-                <span id="luogo"></span>
-            </p>
+            <p class="font-weight-bold my-0">Posizione</p>
+            <p class="my-0" id="luogo"></p>
         </section>
 
         <section id="dati" style="width:70%">
@@ -317,5 +317,7 @@
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAD5xIyTRguXWhPtdxUS5g3itzSKMcxEbE"></script>
 </body>
+
+
 
 </html>
