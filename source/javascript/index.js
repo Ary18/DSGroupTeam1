@@ -10,13 +10,9 @@ var map2;
 var oldDate = '';
 var pos = 1;
 var mark;
-window.addEventListener('load', function () {
+function loadCurrentWeather(weather) { //funzione caricamento homepage con binding e popolazione localStorage se disponibile
     'use strict';
-    loadPosition();
-});
-function loadCurrentWeather(weather) {
-    'use strict';
-    try {
+    try { //controllo eccezzione localStorage inserito per Safari 
         if (localStorage && localStorage.ultimoaccesso) {
             oldDate = localStorage.ultimoaccesso;
         } else {
@@ -35,16 +31,16 @@ function loadCurrentWeather(weather) {
         user = 'Mario';
         oldDate = "Non Disponibile";
     }
-    finally {
+    finally { //esecuzione binding HOME
         var arrayId = ['nome', 'accesso', 'icona', 'temp', 'wind', 'cloudiness', 'pressure', 'humidity', 'sunrise', 'sunset'];
         var arrayValue = [user, oldDate, weather.weather[0].icon, weather.main.temp, weather.wind, weather.weather[0].description, weather.main.pressure, weather.main.humidity, weather.sys.sunrise, weather.sys.sunset];
         for (var i = 0; i < arrayId.length; i++) {
             load(arrayId[i], arrayValue[i]);
         }
     }
-    $('.loader').fadeOut();
+    $('.loader').fadeOut(); //nascondo loading
 }
-function addRow(array) {
+function addRow(array) { //funzione creazione righe tabella
     'use strict';
     var tr = $(document.createElement('tr'));
     $(tr).addClass('forecast');
@@ -62,7 +58,7 @@ function addRow(array) {
     }
     return tr;
 }
-function addRowTh(array) {
+function addRowTh(array) { //funzione creazione testa tabella
     'use strict';
     var tr = $(document.createElement('tr'));
     $(tr).addClass('forecast bg-inverse text-white');
@@ -71,7 +67,7 @@ function addRowTh(array) {
     }
     return tr;
 }
-function backForward(direction) {
+function backForward(direction) { //funzione di fadeIn/Out tabelle forecast con controllo booleano
     'use strict';
     if (direction) {
         if (pos < n) {
@@ -82,7 +78,7 @@ function backForward(direction) {
             $('#data' + pos).hide();
             pos++;
             $('#data' + pos).show();
-            if(pos===n){
+            if (pos === n) {
                 $('#btForward').prop('disabled', true);
             }
         }
@@ -97,18 +93,17 @@ function backForward(direction) {
             pos--;
             // $('.num-' + pos).show();
             $('#data' + pos).show();
-            if(pos===1){
+            if (pos === 1) {
                 $('#btBack').prop('disabled', true);
             }
         }
     }
 }
-function loadForecast(forecast) {
+function loadForecast(forecast) {//funzione di caricamento forecast dove crea tutte le tabelle e le nasconde tranne la prima, 
     'use strict';
-    console.log(forecast);
     var weather;
-    n=1;
-    pos=1;
+    n = 1;
+    pos = 1;
     var tr;
     var oldDay = {
         date: moment.unix(forecast.list[0].dt).format('L'),
@@ -118,12 +113,12 @@ function loadForecast(forecast) {
     $('div').remove('#headForecast');
     var article = $(document.createElement('article'));
     $(article).attr('id', 'contForecast');
-    var head=$(document.createElement('div'));
+    var head = $(document.createElement('div'));
     $(head).attr('id', 'headForecast');
     $(head).addClass('modal-title col order-first');
     $('#dateHeader').append(head);
     $('#contTable').append(article);
-    while (oldDay.index < 39) {
+    while (oldDay.index < 39) {    //ciclo creazione tabelle
         var h3 = $(document.createElement('h5'));
         $(h3).attr('id', 'data' + n);
         $('#headForecast').append(h3);
@@ -137,13 +132,13 @@ function loadForecast(forecast) {
         var arrayValueTh = ['Ora', 'Fenomeno', 'Tempo', 'Temperatura'];
         var thead = $(document.createElement('thead'));
         $(table).append(thead);
-        $(thead).append(addRowTh(arrayTh));
+        $(thead).append(addRowTh(arrayTh)); //ciclo creazione testa tabella
         for (var i = 0; i < arrayTh.length; i++) {
             load(arrayTh[i], arrayValueTh[i], oldDay.index);
         }
         n++;
         weather = forecast.list[oldDay.index];
-        while (oldDay.date === moment.unix(weather.dt).format('L')) {
+        while (oldDay.date === moment.unix(weather.dt).format('L')) { //ciclo creazione righe tabella
             if (oldDay.index <= 39) {
                 oldDay.date = moment.unix(weather.dt).format('L');
                 weather = forecast.list[oldDay.index];
@@ -159,7 +154,7 @@ function loadForecast(forecast) {
                 oldDay.index++;
             }
             else {
-                weather = forecast.list[oldDay.index-1];
+                weather = forecast.list[oldDay.index - 1];
                 oldDay.date = '';
             }
         }
@@ -204,22 +199,15 @@ function findPosition(position) {
         }
     });
 }
-function loadPosition() { //geolocalizza e restituisce l'indirizzo utilizzando il reverse geocoding
-    'use strict';
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(loadMap, noGeolocation);
-    } else {
-        alert('non disponibile');
-    }
-}
-function noGeolocation() {
+
+function noGeolocation() {//se la localizzazione viene bloccata, apri modale search
     'use strict';
     loadMap();
     $('.loader').fadeOut();
     enableMarker();
     $("#myModal").modal();
 }
-function loadMap(position) {
+function loadMap(position) {//funzione caricamento mappe
     'use strict';
     var mapProp;
     if (position && position.coords) {
@@ -260,10 +248,8 @@ function loadMap(position) {
     });
     $.getJSON('https://api.openweathermap.org/data/2.5/weather?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadCurrentWeather);
     $.getJSON('https://api.openweathermap.org/data/2.5/forecast?lat=' + latitulong.lat() + '&lon=' + latitulong.lng() + '&lang=it&APPID=ee6b293d773f4fcd7e434f79bbc341f2', loadForecast);
-
-
 }
-function load(id, value, j) {
+function load(id, value, j) {//funzione di binding
     'use strict';
     var name = document.getElementById(id);
     switch (id) {
@@ -291,34 +277,34 @@ function load(id, value, j) {
             name.innerText = value;
     }
 }
-$('#btSearch').click(function () {
+$('#btSearch').click(function () {//chiusura modale search con click su tasto ok
     'use strict';
     $('#myModal').modal('hide');
     findPosition($('#srch-term').val());
 });
-$("#modalSearch").on('keyup', function (e) {
+$("#modalSearch").on('keyup', function (e) { //chiusura modale search con tasto invio
     'use strict';
     if (e.keyCode === 13) {
         $('#myModal').modal('hide');
         findPosition($('#srch-term').val());
     }
 });
-$('#btForward').click(function () {
+$('#btForward').click(function () {//al click del bottone avanti avvia funzione con booleano true
     'use strict';
     backForward(true);
 });
-$('#btBack').click(function () {
+$('#btBack').click(function () {//al click del bottone indietro avvia funzione con booleano false
     'use strict';
     backForward(false);
 });
-function enableMarker(){
+function enableMarker() {//funzione che setta un nuovo marcatore sulla mappa del modale e cancella il vecchio
     'use strict';
     google.maps.event.addListener(map2, 'click', function (event) {
         var geocoder = new google.maps.Geocoder();
         geocoder.geocode({ 'location': event.latLng }, function (results) {
             if (results[0]) {
                 currentPosition = results[0].formatted_address;
-                $('#srch-term').val(currentPosition);//document.getElementById('srch-term');
+                $('#srch-term').val(currentPosition); //binding posizione ricavata dal nuovo marcatore 
                 mark.setMap(null);
                 mark = new google.maps.Marker({
                     position: event.latLng,
@@ -330,7 +316,19 @@ function enableMarker(){
         });
     });
 }
-$('#findPosition').click(function () {
+$('#findPosition').click(function () {//se si preme sul bottone di ricerca abilita la ricerca con il markup sulla mappa
     'use strict';
     enableMarker();
+});
+function loadPosition() { //carica mappa all'avvio
+    'use strict';
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(loadMap, noGeolocation);
+    } else {
+        noGeolocation();
+    }
+}
+window.addEventListener('load', function () { //avvio funzione dopo il caricamento del DOM
+    'use strict';
+    loadPosition();
 });
