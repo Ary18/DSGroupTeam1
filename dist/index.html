@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="styleBootstrap.css">
+    <title>Previsioni Meteo</title>
+</head>
+
+<body id="loading" class="container-fluid">
+    <div class="loader">LOADING...</div>
+    <nav class="navbar navbar-toggleable-sm  navbar-inverse bg-inverseNav ">
+        <button class="navbar-toggler navbar-toggler-right " type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+            aria-expanded="false" aria-label="">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="backLogo">
+            <a class="navbar-brand" href="https://www.dsgroup.it/">
+                <img src="img/logo.png" width="30" height="30" alt="">
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Chi Siamo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contatti</a>
+                </li>
+            </ul>
+        </div>
+        <button id="findPosition" type="button" class="btn btn-info btn-md my-2 " data-toggle="modal" data-target="#myModal">Cerca la tua posizione!</button>
+    </nav>
+
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog ">
+            <!-- Modal content-->
+            <div class="modal-content ">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div id="modalSearch" class="modal-body">
+
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Cerca Località" name="srch-term" id="srch-term">
+                        <div class="input-group-btn">
+                            <button id="btSearch" class="btn btn-primary" type="submit" >GO</button>
+                        </div>
+                    </div>
+
+                    <article id="mappa2" style="height:400px; width: 100%"></article>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <header id="testa" class="jumbotron jumbotron-fluid p-2  shadow-nohover">
+        <div id="saluto" class="display-3 m-4">
+            <h1 class="text-center">Bentornato
+                <span id="nome"></span>!</h1>
+        </div>
+        <hr class="my-2">
+        <ul class="list-group m-2 list-group m-2 align-items-center">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                Ultimo accesso:
+                <span id="accesso" class="badge badge-primary badge-pill" style="margin-left:1px"></span>
+            </li>
+        </ul>
+    </header>
+
+    <main id="container" class="card align-items-center shadow-nohover">
+
+        <section id="posizione" class="rounded">
+            <p class="font-weight-bold my-0">Posizione</p>
+            <p class="my-0" id="luogo"></p>
+        </section>
+
+        <section id="dati" style="width:70%">
+            <article class="card align-items-center">
+
+                <h3>Le previsioni di oggi</h3>
+                <div id="intro">
+                    <figure class="figureImg">
+                        <img id="icona" alt="immagine">
+                    </figure>
+                    <p>Temperatura:
+                        <span id="temp"></span>
+                    </p>
+                </div>
+
+                <!--Table-->
+                <table class="table table-striped ">
+
+                    <!--Table body-->
+                    <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td>Vento</td>
+                            <td id="wind"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"></th>
+                            <td>Tempo</td>
+                            <td id="cloudiness"></td>
+                            <tr>
+                                <th scope="row"></th>
+                                <td>Pressione</td>
+                                <td>
+                                    <span id="pressure"></span> hpa
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"></th>
+                                <td>Umidità</td>
+                                <td>
+                                    <span id="humidity"></span>%
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row"></th>
+                                <td>Alba</td>
+                                <td id="sunrise"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"></th>
+                                <td>Tramonto</td>
+                                <td id="sunset"></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"></th>
+                                <td>Coordinate</td>
+                                <td id="geoCoords"></td>
+                            </tr>
+                    </tbody>
+                    <!--Table body-->
+
+                </table>
+            </article>
+            <div id="align1" class="text-center">
+                <button type="button" class="btn btn-info btn-lg " data-toggle="modal" data-target="#forecast">
+                    Prossimi giorni...
+                </button>
+            </div>
+            <article id="mappa" style="height:400px; width: 95%"></article>
+        </section>
+
+        <div id="forecast" class="modal fade">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div id="dateHeader" class="modal-header row">
+                        <button type="button" class="close col-1 order-last" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div  class="modal-body d-flex flex-column justify-content-center">
+                        <div id="contTable" class="d-flex justify-content-center"></div>
+                        <div class="d-flex flex-row justify-content-center">
+                            <button class="btn btn-primary m-2" id="btBack">indietro</button>
+                            <button class="btn btn-primary m-2" id="btForward">avanti</button>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!--Footer-->
+    <footer class="page-footer font-small indigo pt-4">
+
+        <!--Footer Links-->
+        <div class="container shadow-nohover fl">
+
+            <!--Grid row-->
+            <div class="row pt-5 mb-3 text-center d-flex justify-content-center">
+
+                <!--Grid column-->
+                <div class="col-md-2 mb-3">
+                    <h6 class="title font-weight-bold">
+                        <a href="#!" style="color:white">Home</a>
+                    </h6>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-2 mb-3">
+                    <h6 class="title font-weight-bold">
+                        <a href="#!" style="color:white">Chi siamo</a>
+                    </h6>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-2 mb-3">
+                    <h6 class="title font-weight-bold">
+                        <a href="#!" style="color:white">Contattaci</a>
+                    </h6>
+                </div>
+                <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+            <hr class="rgba-white-light" style="margin: 0 15%; background-color:rgba(0,0,0,.1)">
+
+            <!--Grid row-->
+            <div class="row d-flex text-center justify-content-center mb-md-0 mb-4">
+
+                <!--Grid column-->
+                <div class="col-md-8 col-12 mt-5">
+                    <p style="line-height: 1.7rem">Il servizio metereologico è stato offerto dal gruppo 1</p>
+                    <p style="line-height: 1.7rem">Seguici anche su:</p>
+                </div>
+                <!--Grid column-->
+
+            </div>
+            <!--Grid row-->
+
+            <hr class="clearfix d-md-none rgba-white-light" style="margin: 10% 15% 5%;">
+
+            <!--Grid row-->
+            <div class="row pb-3">
+
+                <!--Grid column-->
+                <div class="col-md-12">
+
+                    <!--Social buttons-->
+                    <div class="text-center">
+                        <ul class="list-unstyled list-inline">
+                            <li class="list-inline-item">
+                                <a class="btn-floating btn-sm btn-fb mx-1" href="https://www.facebook.com/">
+                                    <i class="fa fa-facebook">
+                                        <img src="http://www.colaisteiosagainport.ie/wp-content/files/images/2015/05/Facebook_logo_square-300x300.png" class="rounded-circle shadow-nohover shadowLink"
+                                            width="60px">
+                                    </i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="btn-floating btn-sm btn-tw mx-1" href="https://twitter.com/">
+                                    <i class="fa fa-twitter">
+                                        <img src="https://cdn1.iconfinder.com/data/icons/logotypes/32/square-twitter-256.png" class="rounded-circle shadow-nohover shadowLink"
+                                            width="60px">
+                                    </i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="btn-floating btn-sm btn-gplus mx-1" href="https://plus.google.com/discover">
+                                    <i class="fa fa-google-plus">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Google_circle.svg/512px-Google_circle.svg.png" class="rounded-circle shadow-nohover shadowLink"
+                                            width="60px">
+                                    </i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="btn-floating btn-sm btn-li mx-1" href="https://www.linkedin.com/">
+                                    <i class="fa fa-linkedin">
+                                        <img src="https://cdn1.iconfinder.com/data/icons/logotypes/32/square-linkedin-512.png" class="rounded-circle shadow-nohover shadowLink"
+                                            width="60px">
+                                    </i>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="btn-floating btn-sm btn-instagram mx-1" href="https://www.instagram.com/?hl=en">
+                                    <i class="fa fa-instagram">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/599px-Instagram_icon.png" class="rounded-circle shadow-nohover shadowLink"
+                                            width="60px">
+                                    </i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--/.Social buttons-->
+                </div>
+                <!--Grid column-->
+            </div>
+            <!--Grid row-->
+
+        </div>
+        <!--/Footer Links-->
+
+        <!--Copyright-->
+        <div class="footer-copyright py-3 text-center">
+            <div class="container-fluid">
+                © 2018 Copyright: Team 1
+            </div>
+        </div>
+        <!--/Copyright-->
+
+    </footer>
+    <!--/Footer-->
+
+
+     <script src="../node_modules/moment/min/moment.min.js"></script>
+    <script src="../node_modules/moment/locale/it.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script src="bundle.js"></script>
+    <script src="../node_modules/tether/dist/js/tether.js"></script>
+     <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAD5xIyTRguXWhPtdxUS5g3itzSKMcxEbE"></script>
+</body>
+
+
+
+</html>
