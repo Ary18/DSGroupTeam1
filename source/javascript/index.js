@@ -105,6 +105,7 @@ function backForward(direction) {
 }
 function loadForecast(forecast) {
     'use strict';
+    console.log(forecast);
     var weather;
     n=1;
     pos=1;
@@ -143,8 +144,7 @@ function loadForecast(forecast) {
         n++;
         weather = forecast.list[oldDay.index];
         while (oldDay.date === moment.unix(weather.dt).format('L')) {
-            if (oldDay.index <= 38) {
-                oldDay.index++;
+            if (oldDay.index <= 39) {
                 oldDay.date = moment.unix(weather.dt).format('L');
                 weather = forecast.list[oldDay.index];
                 var arrayId = ['data', 'time' + oldDay.index, 'ficona' + oldDay.index, 'fcloudiness' + oldDay.index, 'ftemp' + oldDay.index];
@@ -156,9 +156,10 @@ function loadForecast(forecast) {
                 for (i = 1; i < arrayId.length; i++) {
                     load(arrayId[i], arrayValue[i], oldDay.index);
                 }
+                oldDay.index++;
             }
             else {
-                weather = forecast.list[oldDay.index];
+                weather = forecast.list[oldDay.index-1];
                 oldDay.date = '';
             }
         }
