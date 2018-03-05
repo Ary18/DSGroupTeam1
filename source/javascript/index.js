@@ -118,7 +118,9 @@ function loadForecast(forecast) {//funzione di caricamento forecast dove crea tu
     $(head).addClass('modal-title col order-first');
     $('#dateHeader').append(head);
     $('#contTable').append(article);
-    while (oldDay.index < 39) {    //ciclo creazione tabelle
+    console.log(forecast.list.length - 1);
+    var dimList = forecast.list.length - 2;
+    while (oldDay.index < dimList) {    //ciclo creazione tabelle
         var h3 = $(document.createElement('h5'));
         $(h3).attr('id', 'data' + n);
         $('#headForecast').append(h3);
@@ -138,6 +140,7 @@ function loadForecast(forecast) {//funzione di caricamento forecast dove crea tu
         }
         n++;
         weather = forecast.list[oldDay.index];
+
         while (oldDay.date === moment.unix(weather.dt).format('L')) { //ciclo creazione righe tabella
             if (oldDay.index <= 39) {
                 oldDay.date = moment.unix(weather.dt).format('L');
