@@ -119,7 +119,7 @@ function loadForecast(forecast) {//funzione di caricamento forecast dove crea tu
     $('#dateHeader').append(head);
     $('#contTable').append(article);
     console.log(forecast.list.length - 1);
-    var dimList = forecast.list.length - 2;
+    var dimList = forecast.list.length - 1;
     while (oldDay.index < dimList) {    //ciclo creazione tabelle
         var h3 = $(document.createElement('h5'));
         $(h3).attr('id', 'data' + n);
